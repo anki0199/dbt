@@ -1,0 +1,130 @@
+﻿-------------------------
+230940120027_Assignment_2
+Assignment 2
+-------------------------
+
+
+mysql> create database college;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use college;
+Database changed
+mysql> create table student(
+    -> roll int,
+    -> name varchar(20),
+    -> class varchar(10),
+    -> marks float,
+    -> age int
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| class | varchar(10) | YES  |     | NULL    |       |
+| marks | float       | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> insert into student (roll,name,class,marks,age) values(1, 'Priya', 'FY', 76.46, 20);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student (roll,name,class,marks,age) values(2, 'Ravi', 'TY', 56.86, 22);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student (roll,name,class,marks,age) values(3, 'Sunidhi', 'SY', 86.76, 21);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student (roll,name,class,marks,age) values(4, 'Sunil', 'SY', 66.46, 21);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student (roll,name,class,marks,age) values(5, 'Pravin', 'TY', 76.86, 23);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    1 | Priya   | FY    | 76.46 |   20 |
+|    2 | Ravi    | TY    | 56.86 |   22 |
+|    3 | Sunidhi | SY    | 86.76 |   21 |
+|    4 | Sunil   | SY    | 66.46 |   21 |
+|    5 | Pravin  | TY    | 76.86 |   23 |
++------+---------+-------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> delete from student where roll=4;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    1 | Priya   | FY    | 76.46 |   20 |
+|    2 | Ravi    | TY    | 56.86 |   22 |
+|    3 | Sunidhi | SY    | 86.76 |   21 |
+|    5 | Pravin  | TY    | 76.86 |   23 |
++------+---------+-------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> Update student set marks=89.67 where roll=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    1 | Priya   | FY    | 76.46 |   20 |
+|    2 | Ravi    | TY    | 56.86 |   22 |
+|    3 | Sunidhi | SY    | 89.67 |   21 |
+|    5 | Pravin  | TY    | 76.86 |   23 |
++------+---------+-------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> Update student set marks=marks+0.5;
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from student;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    1 | Priya   | FY    | 76.96 |   20 |
+|    2 | Ravi    | TY    | 57.36 |   22 |
+|    3 | Sunidhi | SY    | 90.17 |   21 |
+|    5 | Pravin  | TY    | 77.36 |   23 |
++------+---------+-------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> truncate student;
+Query OK, 0 rows affected (0.05 sec)
+
+
+mysql> insert into student (roll,name,class,marks,age) values
+    -> (1, 'Priya', 'FY', 76.46, 20),
+    -> (2, 'Ravi', 'TY', 56.86, 22),
+    -> (3, 'Sunidhi', 'SY', 86.76, 21),
+    -> (4, 'Sunil', 'SY', 66.46, 21),
+    -> (5, 'Pravin', 'TY', 76.86, 23);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    1 | Priya   | FY    | 76.46 |   20 |
+|    2 | Ravi    | TY    | 56.86 |   22 |
+|    3 | Sunidhi | SY    | 86.76 |   21 |
+|    4 | Sunil   | SY    | 66.46 |   21 |
+|    5 | Pravin  | TY    | 76.86 |   23 |
++------+---------+-------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> 
+

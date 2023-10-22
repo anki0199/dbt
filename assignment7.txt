@@ -1,0 +1,357 @@
+-- Create Employee table
+CREATE TABLE Employee (
+    Empid INT PRIMARY KEY,
+    EmpName VARCHAR(255),
+    Department VARCHAR(255),
+    ContactNo VARCHAR(10),
+    EmailId VARCHAR(255),
+    EmpHeadId INT
+);
+
+-- Insert data into Employee table
+INSERT INTO Employee (Empid, EmpName, Department, ContactNo, EmailId, EmpHeadId)
+VALUES
+(101, 'Isha', 'E-101', '1234567890', 'isha@gmail.com', 105),
+(102, 'Priya', 'E-104', '1234567890', 'priya@yahoo.com', 103),
+(103, 'Neha', 'E-101', '1234567890', 'neha@gmail.com', 101),
+(104, 'Rahul', 'E-102', '1234567890', 'rahul@yahoo.com', 105),
+(105, 'Abhishek', 'E-101', '1234567890', 'abhishek@gmail.com', 102);
+
+-- Create EmpDept table
+CREATE TABLE EmpDept (
+    DeptId VARCHAR(10) PRIMARY KEY,
+    DeptName VARCHAR(255),
+    Dept_off VARCHAR(255),
+    DeptHead INT
+);
+
+-- Insert data into EmpDept table
+INSERT INTO EmpDept (DeptId, DeptName, Dept_off, DeptHead)
+VALUES
+('E-101', 'HR', 'Monday', 105),
+('E-102', 'Development', 'Tuesday', 101),
+('E-103', 'House Keeping', 'Saturday', 103),
+('E-104', 'Sales', 'Sunday', 104),
+('E-105', 'Purchase', 'Tuesday', 104);
+
+-- Create EmpSalary table
+CREATE TABLE EmpSalary (
+    EmpId INT PRIMARY KEY,
+    Salary INT,
+    IsPermanent VARCHAR(3)
+);
+
+-- Insert data into EmpSalary table
+INSERT INTO EmpSalary (EmpId, Salary, IsPermanent)
+VALUES
+(101, 2000, 'Yes'),
+(102, 10000, 'Yes'),
+(103, 5000, 'No'),
+(104, 1900, 'Yes'),
+(105, 2300, 'Yes');
+
+-- Create Project table
+CREATE TABLE Project (
+    ProjectId VARCHAR(10) PRIMARY KEY,
+    Duration INT
+);
+
+-- Insert data into Project table
+INSERT INTO Project (ProjectId, Duration)
+VALUES
+('p-1', 23),
+('p-2', 15),
+('p-3', 45),
+('p-4', 2),
+('p-5', 30);
+
+-- Create Country table
+CREATE TABLE Country (
+    cid VARCHAR(5) PRIMARY KEY,
+    cname VARCHAR(255)
+);
+
+-- Insert data into Country table
+INSERT INTO Country (cid, cname)
+VALUES
+('c-1', 'India'),
+('c-2', 'USA'),
+('c-3', 'China'),
+('c-4', 'Pakistan'),
+('c-5', 'Russia');
+
+-- Create ClientTable table
+CREATE TABLE ClientTable (
+    ClientId VARCHAR(10) PRIMARY KEY,
+    ClientName VARCHAR(255),
+    cid VARCHAR(5),
+    FOREIGN KEY (cid) REFERENCES Country(cid)
+);
+
+-- Insert data into ClientTable table
+INSERT INTO ClientTable (ClientId, ClientName, cid)
+VALUES
+('cl-1', 'ABC Group', 'c-1'),
+('cl-2', 'PQR', 'c-1'),
+('cl-3', 'XYZ', 'c-2'),
+('cl-4', 'Tech Altum', 'c-3'),
+('cl-5', 'MNP', 'c-5');
+
+-- Create EmpProject table
+CREATE TABLE EmpProject (
+    EmpId INT,
+    ProjectId VARCHAR(10),
+    ClientID VARCHAR(10),
+    StartYear INT,
+    EndYear INT,
+    PRIMARY KEY (EmpId, ProjectId, ClientID),
+    FOREIGN KEY (EmpId) REFERENCES Employee(Empid),
+    FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId),
+    FOREIGN KEY (ClientID) REFERENCES ClientTable(ClientId)
+);
+
+-- Insert data into EmpProject table
+INSERT INTO EmpProject (EmpId, ProjectId, ClientID, StartYear, EndYear)
+VALUES
+(101, 'p-1', 'cl-1', 2010, 2010),
+(102, 'p-2', 'cl-2', 2010, 2012),
+(103, 'p-1', 'cl-3', 2013, NULL),
+(104, 'p-4', 'cl-1', 2014, 2015),
+(105, 'p-4', 'cl-5', 2015, NULL);
+
+------------------------------------------------------------------------------------------------
+1. Select the detail of the employee whose name starts with P.
+SELECT * FROM Employee WHERE EmpName LIKE 'P%';
+
+2. How many permanent candidates take salary more than 5000.
+SELECT COUNT(*) FROM EmpSalary WHERE IsPermanent = 'Yes' AND Salary > 5000;
+
+3. Select the detail of employees whose EmailId is in Gmail.
+SELECT * FROM Employee WHERE EmailId LIKE '%@gmail.com';
+
+4. Select the details of employees who work either for department E-104 or E-102.
+SELECT * FROM Employee WHERE Department IN ('E-104', 'E-102');
+
+5. What is the department name for DeptID E-102?
+SELECT DeptName FROM EmpDept WHERE DeptId = 'E-102';
+
+6. What is the total salary paid to permanent employees?
+SELECT SUM(Salary) FROM EmpSalary WHERE IsPermanent = 'Yes';
+
+7. List the name of all employees whose name ends with a.
+SELECT * FROM Employee WHERE RIGHT(EmpName, 1) = 'a';
+
+8. List the number of departments of employees in each project.
+SELECT ProjectId, COUNT(DISTINCT Department) FROM Employee GROUP BY ProjectId;
+
+9. How many projects started in the year 2010?
+SELECT COUNT(*) FROM EmpProject WHERE StartYear = 2010;
+
+10. How many projects started and finished in the same year?
+SELECT COUNT(*) FROM EmpProject WHERE StartYear = EndYear;
+
+11. Select the name of the employee whose name's 3rd character is 'h'.
+SELECT * FROM Employee WHERE SUBSTRING(EmpName, 3, 1) = 'h';
+
+12. Select the department name of the company which is assigned to the employee whose employee ID is greater than 103.
+SELECT d.DeptName 
+FROM Employee e 
+JOIN EmpDept d ON e.Department = d.DeptId 
+WHERE e.Empid > 103;
+
+13. Select the name of the employee who is working under Abhishek.
+SELECT e.EmpName 
+FROM Employee e 
+JOIN Employee e2 ON e.EmpHeadId = e2.Empid 
+WHERE e2.EmpName = 'Abhishek';
+
+14. Select the name of the employee who is the department head of HR.
+SELECT EmpName 
+FROM Employee 
+WHERE EmpHeadId IS NULL AND Department = 'E-101';
+
+15. Select the name of the employee head who is permanent.
+SELECT EmpName 
+FROM Employee 
+WHERE Empid = EmpHeadId AND Empid IN (SELECT Empid FROM EmpSalary WHERE IsPermanent = 'Yes');
+
+16. Select the name and email of the Dept Head who is not Permanent.
+SELECT e.EmpName, e.EmailId 
+FROM Employee e 
+JOIN EmpDept d ON e.Department = d.DeptId 
+WHERE e.Empid = d.DeptHead AND e.Empid NOT IN (SELECT Empid FROM EmpSalary WHERE IsPermanent = 'Yes');
+
+17. Select the employee whose department off is Monday.
+SELECT * 
+FROM Employee e 
+JOIN EmpDept d ON e.Department = d.DeptId 
+WHERE d.Dept_off = 'Monday';
+
+18. Select Indian clients' details.
+SELECT * FROM ClientTable WHERE cid = 'c-1';
+
+19. Select the details of all employees working in the Development department.
+SELECT * FROM Employee WHERE Department = 'E-102';
+
+20. Create a procedure to calculate the average salaries of employees.
+DELIMITER //
+CREATE PROCEDURE CalculateAverageSalary()
+BEGIN
+    SELECT AVG(Salary) FROM EmpSalary;
+END//
+DELIMITER ;
+
+21. Join the first two tables using inner join.
+SELECT * FROM Employee INNER JOIN EmpDept ON Employee.Department = EmpDept.DeptId;
+
+22. Create a copy of the Employee table, add three extra entries, and find the union, difference, and intersect.
+-- Create a copy of the Employee table
+CREATE TABLE Employee_Copy AS SELECT * FROM Employee;
+-- Add three extra entries
+INSERT INTO Employee_Copy (Empid, EmpName, Department, ContactNo, EmailId, EmpHeadId)
+VALUES (106, 'John', 'E-101', '1234567890', 'john@gmail.com', 105),
+(107, 'Alice', 'E-104', '1234567890', 'alice@yahoo.com', 103),
+(108, 'Bob', 'E-105', '1234567890', 'bob@gmail.com', 105);
+
+-- Union
+SELECT * FROM Employee UNION SELECT * FROM Employee_Copy;
+-- Difference
+SELECT * FROM Employee WHERE Empid NOT IN (SELECT Empid FROM Employee_Copy);
+-- Intersect
+SELECT * FROM Employee WHERE Empid IN (SELECT Empid FROM Employee_Copy);
+
+23. Create a procedure to pass an employee ID as input and generate his ID, salary, contact number, and department name as output.
+DELIMITER //
+
+CREATE PROCEDURE GetEmployeeDetails(IN emp_id INT)
+BEGIN
+    SELECT Empid, Salary, ContactNo, Department FROM Employee WHERE Empid = emp_id;
+END//
+
+DELIMITER ;
+
+24. Create a view for the data retrieved (client name, project id, start and end year).
+CREATE VIEW ClientProjectDetails AS
+SELECT c.ClientName, ep.ProjectId, ep.StartYear, ep.EndYear
+FROM ClientTable c
+JOIN EmpProject ep ON c.ClientId = ep.ClientID;
+
+25. Calculate the average salary of permanent employees.
+SELECT AVG(Salary) FROM EmpSalary WHERE IsPermanent = 'Yes';
+
+26. Create a function to print department off when the department name is given as input.
+DELIMITER //
+
+CREATE FUNCTION GetDeptOff(dept_name VARCHAR(255))
+RETURNS VARCHAR(255)
+BEGIN
+    DECLARE dept_off VARCHAR(255);
+    SELECT Dept_off INTO dept_off FROM EmpDept WHERE DeptName = dept_name;
+    RETURN dept_off;
+END//
+
+DELIMITER ;
+
+27. Write a function to deduct 10% TDS from employees' salary. The select statement should generate empid, salary after TDS, and department name on screen.
+DELIMITER //
+
+CREATE FUNCTION CalculateSalaryAfterTDS(salary INT)
+RETURNS INT
+BEGIN
+    DECLARE salary_after_tds INT;
+    SET salary_after_tds = salary - (0.1 * salary);
+    RETURN salary_after_tds;
+END//
+
+DELIMITER ;
+
+28. Write a cursor to extract id, name, contact, and email from the first table and store it in another temporary table.
+DELIMITER //
+
+CREATE PROCEDURE ExtractDataAndStore()
+BEGIN
+    DECLARE emp
+	DECLARE emp_id INT;
+	DECLARE emp_name VARCHAR(255);
+	DECLARE emp_contact VARCHAR(10);
+	DECLARE emp_email VARCHAR(255);
+
+	DECLARE done INT DEFAULT 0;
+	DECLARE cur CURSOR FOR
+		SELECT Empid, EmpName, ContactNo, EmailId FROM Employee;
+
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+	CREATE TEMPORARY TABLE TempEmployeeData (
+		Empid INT,
+		EmpName VARCHAR(255),
+		ContactNo VARCHAR(10),
+		EmailId VARCHAR(255)
+	);
+
+OPEN cur;
+
+read_loop: LOOP
+    FETCH cur INTO emp_id, emp_name, emp_contact, emp_email;
+    IF done THEN
+        LEAVE read_loop;
+    END IF;
+    
+    INSERT INTO TempEmployeeData (Empid, EmpName, ContactNo, EmailId)
+    VALUES (emp_id, emp_name, emp_contact, emp_email);
+END LOOP;
+
+CLOSE cur;
+END//
+
+DELIMITER ;
+In this code, a cursor is created to fetch data from the Employee table, and the fetched data (Employee ID, Name, Contact Number, and Email) is inserted into a temporary table called TempEmployeeData.
+
+29. Create a trigger on the first table to check if the user inserted DeptHeadId between 101 and 105 or not. If not, make DeptHeadId as 100.
+DELIMITER //
+
+CREATE TRIGGER Before_Insert_Employee
+BEFORE INSERT ON Employee
+FOR EACH ROW
+BEGIN
+    IF NEW.EmpHeadId < 101 OR NEW.EmpHeadId > 105 THEN
+        SET NEW.EmpHeadId = 100;
+    END IF;
+END//
+
+DELIMITER ;
+
+
+30. Create a trigger to create a log for updates done on the first two tables. The log table will contain the changes made by the user on both of these tables.
+First, create a table to store the logs:
+CREATE TABLE ChangeLog (
+    LogId INT PRIMARY KEY AUTO_INCREMENT,
+    TableName VARCHAR(255),
+    RecordId INT,
+    OldValue VARCHAR(255),
+    NewValue VARCHAR(255),
+    ChangeTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+Then, create the trigger:
+
+DELIMITER //
+
+CREATE TRIGGER After_Update_Employee
+AFTER UPDATE ON Employee
+FOR EACH ROW
+BEGIN
+    INSERT INTO ChangeLog (TableName, RecordId, OldValue, NewValue)
+    VALUES ('Employee', OLD.Empid, CONCAT('Name:', OLD.EmpName, ', Dept:', OLD.Department, ', Email:', OLD.EmailId),
+    CONCAT('Name:', NEW.EmpName, ', Dept:', NEW.Department, ', Email:', NEW.EmailId));
+END//
+
+CREATE TRIGGER After_Update_EmpDept
+AFTER UPDATE ON EmpDept
+FOR EACH ROW
+BEGIN
+    INSERT INTO ChangeLog (TableName, RecordId, OldValue, NewValue)
+    VALUES ('EmpDept', OLD.DeptId, CONCAT('Name:', OLD.DeptName, ', Dept_off:', OLD.Dept_off),
+    CONCAT('Name:', NEW.DeptName, ', Dept_off:', NEW.Dept_off));
+END//
+
+DELIMITER ;

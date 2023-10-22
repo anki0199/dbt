@@ -1,0 +1,366 @@
+mysql> create database college;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use college;
+Database changed
+
+mysql> CREATE TABLE student (
+    ->     id INT PRIMARY KEY,
+    ->     name VARCHAR(255),
+    ->     dept_id INT,
+    ->     birth DATE
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> INSERT INTO student (id, name, dept_id, birth) VALUES
+    -> (1, 'Maria Gloria', 2, '1994-03-12'),
+    -> (2, 'John Smith', 1, '1993-02-07'),
+    -> (3, 'Gal Rao', 4, '1992-09-11'),
+    -> (4, 'Jakey Smith', 2, '1990-08-31'),
+    -> (5, 'Rama Saho', 1, '1994-12-09'),
+    -> (6, 'Maria Gaga', 4, '1993-10-09');
+Query OK, 6 rows affected (0.02 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++----+--------------+---------+------------+
+| id | name         | dept_id | birth      |
++----+--------------+---------+------------+
+|  1 | Maria Gloria |       2 | 1994-03-12 |
+|  2 | John Smith   |       1 | 1993-02-07 |
+|  3 | Gal Rao      |       4 | 1992-09-11 |
+|  4 | Jakey Smith  |       2 | 1990-08-31 |
+|  5 | Rama Saho    |       1 | 1994-12-09 |
+|  6 | Maria Gaga   |       4 | 1993-10-09 |
++----+--------------+---------+------------+
+6 rows in set (0.01 sec)
+
+mysql> CREATE TABLE department (
+    ->     dept_id INT PRIMARY KEY,
+    ->     dept_name VARCHAR(255),
+    ->     dept_block VARCHAR(255)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO department (dept_id, dept_name, dept_block) VALUES
+    -> (1, 'Computer Science', 'B-Block'),
+    -> (2, 'Information Technology', 'C-Block'),
+    -> (3, 'Mechanical', 'A-Block'),
+    -> (4, 'Electronic Communication', 'D-Block');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++---------+--------------------------+------------+
+| dept_id | dept_name                | dept_block |
++---------+--------------------------+------------+
+|       1 | Computer Science         | B-Block    |
+|       2 | Information Technology   | C-Block    |
+|       3 | Mechanical               | A-Block    |
+|       4 | Electronic Communication | D-Block    |
++---------+--------------------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT s.name, s.birth, d.dept_name, d.dept_block
+    -> FROM student s
+    -> JOIN department d ON s.dept_id = d.dept_id;
++--------------+------------+--------------------------+------------+
+| name         | birth      | dept_name                | dept_block |
++--------------+------------+--------------------------+------------+
+| Maria Gloria | 1994-03-12 | Information Technology   | C-Block    |
+| John Smith   | 1993-02-07 | Computer Science         | B-Block    |
+| Gal Rao      | 1992-09-11 | Electronic Communication | D-Block    |
+| Jakey Smith  | 1990-08-31 | Information Technology   | C-Block    |
+| Rama Saho    | 1994-12-09 | Computer Science         | B-Block    |
+| Maria Gaga   | 1993-10-09 | Electronic Communication | D-Block    |
++--------------+------------+--------------------------+------------+
+6 rows in set (0.01 sec)
+
+mysql> UPDATE student
+    -> SET name = CASE
+    ->     WHEN id = 1 THEN 'Maria'
+    ->     WHEN id = 2 THEN 'John'
+    ->     WHEN id = 3 THEN 'Gal'
+    ->     WHEN id = 4 THEN 'Jakey'
+    ->     WHEN id = 5 THEN 'Rama'
+    ->     WHEN id = 6 THEN 'Maria'
+    -> END;
+Query OK, 6 rows affected (0.01 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> select * from student;
++----+-------+---------+------------+
+| id | name  | dept_id | birth      |
++----+-------+---------+------------+
+|  1 | Maria |       2 | 1994-03-12 |
+|  2 | John  |       1 | 1993-02-07 |
+|  3 | Gal   |       4 | 1992-09-11 |
+|  4 | Jakey |       2 | 1990-08-31 |
+|  5 | Rama  |       1 | 1994-12-09 |
+|  6 | Maria |       4 | 1993-10-09 |
++----+-------+---------+------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT name
+    -> FROM student
+    -> WHERE name LIKE '____a';
++-------+
+| name  |
++-------+
+| Maria |
+| Maria |
++-------+
+2 rows in set (0.01 sec)
+
+mysql> truncate student;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> truncate table student;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from student;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE student (
+    ->     id INT PRIMARY KEY,
+    ->     name VARCHAR(255),
+    ->     department VARCHAR(255),
+    ->     birth DATE
+    ->  ^C birth DATE
+mysql> drop table student;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE student (
+    ->     id INT PRIMARY KEY,
+    ->     name VARCHAR(255),
+    ->     department VARCHAR(255),
+    ->     birth DATE
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO student (id, name, department, birth) VALUES
+    -> (1, 'Maria Gloria', 'CS', '1994-03-12'),
+    -> (2, 'John Smith', 'IT', '1993-02-07'),
+    -> (3, 'Gal Rao', 'CS', '1992-09-11'),
+    -> (4, 'Jakey Smith', 'EC', '1990-08-31'),
+    -> (5, 'Rama Saho', 'IT', '1994-12-09'),
+    -> (6, 'Maria Gaga', 'EC', '1993-10-09');
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++----+--------------+------------+------------+
+| id | name         | department | birth      |
++----+--------------+------------+------------+
+|  1 | Maria Gloria | CS         | 1994-03-12 |
+|  2 | John Smith   | IT         | 1993-02-07 |
+|  3 | Gal Rao      | CS         | 1992-09-11 |
+|  4 | Jakey Smith  | EC         | 1990-08-31 |
+|  5 | Rama Saho    | IT         | 1994-12-09 |
+|  6 | Maria Gaga   | EC         | 1993-10-09 |
++----+--------------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT id, name, department, TIMESTAMPDIFF(YEAR, birth, CURDATE()) AS age
+    -> FROM student;
++----+--------------+------------+------+
+| id | name         | department | age  |
++----+--------------+------------+------+
+|  1 | Maria Gloria | CS         |   29 |
+|  2 | John Smith   | IT         |   30 |
+|  3 | Gal Rao      | CS         |   31 |
+|  4 | Jakey Smith  | EC         |   33 |
+|  5 | Rama Saho    | IT         |   28 |
+|  6 | Maria Gaga   | EC         |   29 |
++----+--------------+------------+------+
+6 rows in set (0.01 sec)
+
+-------------------------------------------------------
+-------------------------------------------------------
+-------------------------------------------------------
+
+
+mysql> create database organization;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use organization;
+Database changed
+mysql> CREATE TABLE Employee (
+    ->     Employee_id INT PRIMARY KEY,
+    ->     First_name VARCHAR(255),
+    ->     Last_name VARCHAR(255),
+    ->     Salary INT,
+    ->     Joining_date DATE,
+    ->     Department VARCHAR(255)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO Employee (Employee_id, First_name, Last_name, Salary, Joining_date, Department) VALUES
+    -> (1, 'Bob', 'Kinto', 1000000, '2019-01-20', 'Finance'),
+    -> (2, 'Jerry', 'Kansxo', 6000000, '2019-01-15', 'IT'),
+    -> (3, 'Philip', 'Jose', 8900000, '2019-02-05', 'Banking'),
+    -> (4, 'John', 'Abraham', 2000000, '2019-02-25', 'Insurance'),
+    -> (5, 'Michael', 'Mathew', 2200000, '2019-02-28', 'Finance'),
+    -> (6, 'Alex', 'chreketo', 4000000, '2019-05-10', 'IT'),
+    -> (7, 'Yohan', 'Soso', 1230000, '2019-06-20', 'Banking');
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE Reward (
+    ->     Employee_ref_id INT,
+    ->     date_reward DATE,
+    ->     amount INT,
+    ->     FOREIGN KEY (Employee_ref_id) REFERENCES Employee(Employee_id)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO Reward (Employee_ref_id, date_reward, amount) VALUES
+    -> (1, '2019-05-11', 1000),
+    -> (2, '2019-02-15', 5000),
+    -> (3, '2019-04-22', 2000),
+    -> (1, '2019-06-20', 8000);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from Employee;
++-------------+------------+-----------+---------+--------------+------------+
+| Employee_id | First_name | Last_name | Salary  | Joining_date | Department |
++-------------+------------+-----------+---------+--------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20   | Finance    |
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15   | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05   | Banking    |
+|           4 | John       | Abraham   | 2000000 | 2019-02-25   | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28   | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10   | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20   | Banking    |
++-------------+------------+-----------+---------+--------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from Reward;
++-----------------+-------------+--------+
+| Employee_ref_id | date_reward | amount |
++-----------------+-------------+--------+
+|               1 | 2019-05-11  |   1000 |
+|               2 | 2019-02-15  |   5000 |
+|               3 | 2019-04-22  |   2000 |
+|               1 | 2019-06-20  |   8000 |
++-----------------+-------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT first_name, last_name FROM employee;
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Bob        | Kinto     |
+| Jerry      | Kansxo    |
+| Philip     | Jose      |
+| John       | Abraham   |
+| Michael    | Mathew    |
+| Alex       | chreketo  |
+| Yohan      | Soso      |
++------------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> select first_name as "Employee Name" from employee;
++---------------+
+| Employee Name |
++---------------+
+| Bob           |
+| Jerry         |
+| Philip        |
+| John          |
+| Michael       |
+| Alex          |
+| Yohan         |
++---------------+
+7 rows in set (0.00 sec)
+
+mysql> select lower(last_name) from employee;
++------------------+
+| lower(last_name) |
++------------------+
+| kinto            |
+| kansxo           |
+| jose             |
+| abraham          |
+| mathew           |
+| chreketo         |
+| soso             |
++------------------+
+7 rows in set (0.01 sec)
+
+mysql> select upper(last_name) from employee;
++------------------+
+| upper(last_name) |
++------------------+
+| KINTO            |
+| KANSXO           |
+| JOSE             |
+| ABRAHAM          |
+| MATHEW           |
+| CHREKETO         |
+| SOSO             |
++------------------+
+7 rows in set (0.00 sec)
+
+mysql> select distinct department from Employee;
++------------+
+| department |
++------------+
+| Finance    |
+| IT         |
+| Banking    |
+| Insurance  |
++------------+
+4 rows in set (0.01 sec)
+
+mysql> select substr(first_name, 1, 4) from Employee
+    -> ;
++--------------------------+
+| substr(first_name, 1, 4) |
++--------------------------+
+| Bob                      |
+| Jerr                     |
+| Phil                     |
+| John                     |
+| Mich                     |
+| Alex                     |
+| Yoha                     |
++--------------------------+
+7 rows in set (0.00 sec)
+
+mysql> select instr('John', 'h') as position;
++----------+
+| position |
++----------+
+|        3 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select rtrim(first_name) as rtrim  from Employee;
++-----------+
+| rtrim     |
++-----------+
+|   Bob     |
+|   Jerry   |
+|   Philip  |
+|   John    |
+|   Michael |
+|   Alex    |
+|   Yohan   |
++-----------+
+7 rows in set (0.00 sec)
+
+mysql> select ltrim(first_name) as ltrim  from Employee;
++-----------+
+| ltrim     |
++-----------+
+| Bob       |
+| Jerry     |
+| Philip    |
+| John      |
+| Michael   |
+| Alex      |
+| Yohan     |
++-----------+
+7 rows in set (0.00 sec)

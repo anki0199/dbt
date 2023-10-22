@@ -1,0 +1,263 @@
+﻿---------------------------
+230940120027_Assignment_3
+Assignment 3
+---------------------------
+
+mysql> create database college;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use college;
+Database changed
+
+mysql> create table student(
+    -> roll int,
+    -> name varchar(20),
+    -> class varchar(10),
+    -> marks float,
+    -> age int
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| class | varchar(10) | YES  |     | NULL    |       |
+| marks | float       | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> insert into student (roll,name,class,marks,age) values
+    -> (1, 'Priya', 'FY', 76.46, 20),
+    -> (2, 'Ravi', 'TY', 56.86, 22),
+    -> (3, 'Sunidhi', 'SY', 86.76, 21),
+    -> (4, 'Sunil', 'SY', 66.46, 21),
+    -> (5, 'Pravin', 'TY', 76.86, 23);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> alter table student add constraint pkroll primary key(roll);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| class | varchar(10) | YES  |     | NULL    |       |
+| marks | float       | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> alter table student drop primary key;
+Query OK, 5 rows affected (0.06 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | NO   |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| class | varchar(10) | YES  |     | NULL    |       |
+| marks | float       | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select sum(marks) as total from student;
++-------------------+
+| total             |
++-------------------+
+| 363.4000015258789 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(marks) as average from student;
++-------------------+
+| average           |
++-------------------+
+| 72.68000030517578 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(roll) as NumberOfStudents from stu
+dent;
++------------------+
+| NumberOfStudents |
++------------------+
+|                5 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) as maximum_marks from student
+;
++---------------+
+| maximum_marks |
++---------------+
+|         86.76 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) as minimum_marks from student
+;
++---------------+
+| minimum_marks |
++---------------+
+|         56.86 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select class from student group by class;
++-------+
+| class |
++-------+
+| FY    |
+| TY    |
+| SY    |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select count(roll),age from student group by age
+    -> having count(roll);
++-------------+------+
+| count(roll) | age  |
++-------------+------+
+|           1 |   20 |
+|           1 |   22 |
+|           2 |   21 |
+|           1 |   23 |
++-------------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    1 | Priya   | FY    | 76.46 |   20 |
+|    2 | Ravi    | TY    | 56.86 |   22 |
+|    3 | Sunidhi | SY    | 86.76 |   21 |
+|    4 | Sunil   | SY    | 66.46 |   21 |
+|    5 | Pravin  | TY    | 76.86 |   23 |
++------+---------+-------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student where name like 'p%';
++------+--------+-------+-------+------+
+| roll | name   | class | marks | age  |
++------+--------+-------+-------+------+
+|    1 | Priya  | FY    | 76.46 |   20 |
+|    5 | Pravin | TY    | 76.86 |   23 |
++------+--------+-------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> select distinct  class from student;
++-------+
+| class |
++-------+
+| FY    |
+| TY    |
+| SY    |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student order by marks asc, class desc;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    2 | Ravi    | TY    | 56.86 |   22 |
+|    4 | Sunil   | SY    | 66.46 |   21 |
+|    1 | Priya   | FY    | 76.46 |   20 |
+|    5 | Pravin  | TY    | 76.86 |   23 |
+|    3 | Sunidhi | SY    | 86.76 |   21 |
++------+---------+-------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student order by class desc, marks asc;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    2 | Ravi    | TY    | 56.86 |   22 |
+|    5 | Pravin  | TY    | 76.86 |   23 |
+|    4 | Sunil   | SY    | 66.46 |   21 |
+|    3 | Sunidhi | SY    | 86.76 |   21 |
+|    1 | Priya   | FY    | 76.46 |   20 |
++------+---------+-------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student where age between 21 and 23;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    2 | Ravi    | TY    | 56.86 |   22 |
+|    3 | Sunidhi | SY    | 86.76 |   21 |
+|    4 | Sunil   | SY    | 66.46 |   21 |
+|    5 | Pravin  | TY    | 76.86 |   23 |
++------+---------+-------+-------+------+
+4 rows in set (0.01 sec)
+
+mysql> update student set marks=NULL where roll=5;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    1 | Priya   | FY    | 76.46 |   20 |
+|    2 | Ravi    | TY    | 56.86 |   22 |
+|    3 | Sunidhi | SY    | 86.76 |   21 |
+|    4 | Sunil   | SY    | 66.46 |   21 |
+|    5 | Pravin  | TY    |  NULL |   23 |
++------+---------+-------+-------+------+
+5 rows in set (0.01 sec)
+
+mysql> select * from student where marks=NULL;
+Empty set (0.00 sec)
+
+mysql> select * from student where marks is null;
++------+--------+-------+-------+------+
+| roll | name   | class | marks | age  |
++------+--------+-------+-------+------+
+|    5 | Pravin | TY    |  NULL |   23 |
++------+--------+-------+-------+------+
+1 row in set (0.01 sec)
+
+mysql> select * from student where marks is not null;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    1 | Priya   | FY    | 76.46 |   20 |
+|    2 | Ravi    | TY    | 56.86 |   22 |
+|    3 | Sunidhi | SY    | 86.76 |   21 |
+|    4 | Sunil   | SY    | 66.46 |   21 |
++------+---------+-------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student where class in('TY','FY');
++------+--------+-------+-------+------+
+| roll | name   | class | marks | age  |
++------+--------+-------+-------+------+
+|    1 | Priya  | FY    | 76.46 |   20 |
+|    2 | Ravi   | TY    | 56.86 |   22 |
+|    5 | Pravin | TY    |  NULL |   23 |
++------+--------+-------+-------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student where class not  in('TY','FY');
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    3 | Sunidhi | SY    | 86.76 |   21 |
+|    4 | Sunil   | SY    | 66.46 |   21 |
++------+---------+-------+-------+------+
+2 rows in set (0.01 sec)
+
+
