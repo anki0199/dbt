@@ -121,77 +121,284 @@ VALUES
 
 ------------------------------------------------------------------------------------------------
 1. Select the detail of the employee whose name starts with P.
-SELECT * FROM Employee WHERE EmpName LIKE 'P%';
+mysql> SELECT * FROM Employee WHERE EmpName LIKE 'P%';
++-------+---------+------------+------------+-----------------+-----------+
+| Empid | EmpName | Department | ContactNo  | EmailId         | EmpHeadId |
++-------+---------+------------+------------+-----------------+-----------+
+|   102 | Priya   | E-104      | 1234567890 | priya@yahoo.com |       103 |
++-------+---------+------------+------------+-----------------+-----------+
+1 row in set (0.01 sec)
+
 
 2. How many permanent candidates take salary more than 5000.
-SELECT COUNT(*) FROM EmpSalary WHERE IsPermanent = 'Yes' AND Salary > 5000;
+mysql> SELECT COUNT(*) FROM EmpSalary WHERE IsPermanent = 'Yes' AND Salary > 5000;
++----------+
+| COUNT(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
 
 3. Select the detail of employees whose EmailId is in Gmail.
-SELECT * FROM Employee WHERE EmailId LIKE '%@gmail.com';
+mysql> SELECT * FROM Employee WHERE EmailId LIKE '%@gmail.com';
++-------+----------+------------+------------+--------------------+-----------+
+| Empid | EmpName  | Department | ContactNo  | EmailId            | EmpHeadId |
++-------+----------+------------+------------+--------------------+-----------+
+|   101 | Isha     | E-101      | 1234567890 | isha@gmail.com     |       105 |
+|   103 | Neha     | E-101      | 1234567890 | neha@gmail.com     |       101 |
+|   105 | Abhishek | E-101      | 1234567890 | abhishek@gmail.com |       102 |
++-------+----------+------------+------------+--------------------+-----------+
+3 rows in set (0.00 sec)
+
 
 4. Select the details of employees who work either for department E-104 or E-102.
-SELECT * FROM Employee WHERE Department IN ('E-104', 'E-102');
+mysql> SELECT * FROM Employee WHERE Department IN ('E-104', 'E-102');
++-------+---------+------------+------------+-----------------+-----------+
+| Empid | EmpName | Department | ContactNo  | EmailId         | EmpHeadId |
++-------+---------+------------+------------+-----------------+-----------+
+|   102 | Priya   | E-104      | 1234567890 | priya@yahoo.com |       103 |
+|   104 | Rahul   | E-102      | 1234567890 | rahul@yahoo.com |       105 |
++-------+---------+------------+------------+-----------------+-----------+
+2 rows in set (0.00 sec)
+
 
 5. What is the department name for DeptID E-102?
-SELECT DeptName FROM EmpDept WHERE DeptId = 'E-102';
+mysql> SELECT DeptName FROM EmpDept WHERE DeptId = 'E-102';
++-------------+
+| DeptName    |
++-------------+
+| Development |
++-------------+
+1 row in set (0.00 sec)
+
 
 6. What is the total salary paid to permanent employees?
-SELECT SUM(Salary) FROM EmpSalary WHERE IsPermanent = 'Yes';
+mysql> SELECT SUM(Salary) FROM EmpSalary WHERE IsPermanent = 'Yes';
++-------------+
+| SUM(Salary) |
++-------------+
+|       16200 |
++-------------+
+1 row in set (0.00 sec)
+
 
 7. List the name of all employees whose name ends with a.
-SELECT * FROM Employee WHERE RIGHT(EmpName, 1) = 'a';
+mysql> SELECT * FROM Employee WHERE RIGHT(EmpName, 1) = 'a';
++-------+---------+------------+------------+-----------------+-----------+
+| Empid | EmpName | Department | ContactNo  | EmailId         | EmpHeadId |
++-------+---------+------------+------------+-----------------+-----------+
+|   101 | Isha    | E-101      | 1234567890 | isha@gmail.com  |       105 |
+|   102 | Priya   | E-104      | 1234567890 | priya@yahoo.com |       103 |
+|   103 | Neha    | E-101      | 1234567890 | neha@gmail.com  |       101 |
++-------+---------+------------+------------+-----------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Employee WHERE EmpName LIKE '%a';
++-------+---------+------------+------------+-----------------+-----------+
+| Empid | EmpName | Department | ContactNo  | EmailId         | EmpHeadId |
++-------+---------+------------+------------+-----------------+-----------+
+|   101 | Isha    | E-101      | 1234567890 | isha@gmail.com  |       105 |
+|   102 | Priya   | E-104      | 1234567890 | priya@yahoo.com |       103 |
+|   103 | Neha    | E-101      | 1234567890 | neha@gmail.com  |       101 |
++-------+---------+------------+------------+-----------------+-----------+
+3 rows in set (0.00 sec)
+
 
 8. List the number of departments of employees in each project.
-SELECT ProjectId, COUNT(DISTINCT Department) FROM Employee GROUP BY ProjectId;
+mysql> SELECT P.ProjectId, EDP.DeptId, COUNT(*) AS NumberOfEmployees
+    -> FROM EmpProject EP
+    -> JOIN Project P ON EP.ProjectId = P.ProjectId
+    -> JOIN Employee E ON EP.EmpId = E.EmpId
+    -> JOIN EmpDept EDP ON E.Department = EDP.DeptId
+    -> GROUP BY P.ProjectId, EDP.DeptId;
++-----------+--------+-------------------+
+| ProjectId | DeptId | NumberOfEmployees |
++-----------+--------+-------------------+
+| p-1       | E-101  |                 2 |
+| p-2       | E-104  |                 1 |
+| p-4       | E-102  |                 1 |
+| p-4       | E-101  |                 1 |
++-----------+--------+-------------------+
+4 rows in set (0.01 sec)
+
 
 9. How many projects started in the year 2010?
-SELECT COUNT(*) FROM EmpProject WHERE StartYear = 2010;
+mysql> SELECT COUNT(*) FROM EmpProject WHERE StartYear = 2010;
++----------+
+| COUNT(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
 
 10. How many projects started and finished in the same year?
-SELECT COUNT(*) FROM EmpProject WHERE StartYear = EndYear;
+mysql> SELECT COUNT(*) FROM EmpProject WHERE StartYear = EndYear;
++----------+
+| COUNT(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
 
 11. Select the name of the employee whose name's 3rd character is 'h'.
-SELECT * FROM Employee WHERE SUBSTRING(EmpName, 3, 1) = 'h';
+mysql> SELECT * FROM Employee WHERE SUBSTRING(EmpName, 3, 1) = 'h';
++-------+----------+------------+------------+--------------------+-----------+
+| Empid | EmpName  | Department | ContactNo  | EmailId            | EmpHeadId |
++-------+----------+------------+------------+--------------------+-----------+
+|   101 | Isha     | E-101      | 1234567890 | isha@gmail.com     |       105 |
+|   103 | Neha     | E-101      | 1234567890 | neha@gmail.com     |       101 |
+|   104 | Rahul    | E-102      | 1234567890 | rahul@yahoo.com    |       105 |
+|   105 | Abhishek | E-101      | 1234567890 | abhishek@gmail.com |       102 |
++-------+----------+------------+------------+--------------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Employee WHERE EmpName LIKE '__h%';
++-------+----------+------------+------------+--------------------+-----------+
+| Empid | EmpName  | Department | ContactNo  | EmailId            | EmpHeadId |
++-------+----------+------------+------------+--------------------+-----------+
+|   101 | Isha     | E-101      | 1234567890 | isha@gmail.com     |       105 |
+|   103 | Neha     | E-101      | 1234567890 | neha@gmail.com     |       101 |
+|   104 | Rahul    | E-102      | 1234567890 | rahul@yahoo.com    |       105 |
+|   105 | Abhishek | E-101      | 1234567890 | abhishek@gmail.com |       102 |
++-------+----------+------------+------------+--------------------+-----------+
+4 rows in set (0.00 sec)
+
 
 12. Select the department name of the company which is assigned to the employee whose employee ID is greater than 103.
-SELECT d.DeptName 
-FROM Employee e 
-JOIN EmpDept d ON e.Department = d.DeptId 
-WHERE e.Empid > 103;
+mysql> SELECT d.DeptName
+    -> FROM Employee e
+    -> JOIN EmpDept d ON e.Department = d.DeptId
+    -> WHERE e.Empid > 103;
++-------------+
+| DeptName    |
++-------------+
+| Development |
+| HR          |
++-------------+
+2 rows in set (0.00 sec)
+
 
 13. Select the name of the employee who is working under Abhishek.
-SELECT e.EmpName 
-FROM Employee e 
-JOIN Employee e2 ON e.EmpHeadId = e2.Empid 
-WHERE e2.EmpName = 'Abhishek';
+mysql> SELECT e.EmpName
+    -> FROM Employee e
+    -> JOIN Employee e2 ON e.EmpHeadId = e2.Empid
+    -> WHERE e2.EmpName = 'Abhishek';
++---------+
+| EmpName |
++---------+
+| Isha    |
+| Rahul   |
++---------+
+2 rows in set (0.00 sec)
+
 
 14. Select the name of the employee who is the department head of HR.
-SELECT EmpName 
-FROM Employee 
-WHERE EmpHeadId IS NULL AND Department = 'E-101';
+mysql> SELECT E.EmpName
+    -> FROM Employee E
+    -> JOIN EmpDept ED ON E.Department = ED.DeptId
+    -> WHERE ED.DeptName = 'HR' AND E.EmpId = ED.DeptHead;
++----------+
+| EmpName  |
++----------+
+| Abhishek |
++----------+
+1 row in set (0.00 sec)
+
 
 15. Select the name of the employee head who is permanent.
-SELECT EmpName 
-FROM Employee 
-WHERE Empid = EmpHeadId AND Empid IN (SELECT Empid FROM EmpSalary WHERE IsPermanent = 'Yes');
+mysql> SELECT empname
+    -> FROM employee
+    -> WHERE empid IN (
+    ->     SELECT empheadid
+    ->     FROM employee
+    -> )
+    -> AND empid IN (
+    ->     SELECT empid
+    ->     FROM empsalary
+    ->     WHERE ispermanent = 'yes'
+    -> );
++----------+
+| empname  |
++----------+
+| Abhishek |
+| Isha     |
+| Priya    |
++----------+
+3 rows in set (0.00 sec)
+
 
 16. Select the name and email of the Dept Head who is not Permanent.
-SELECT e.EmpName, e.EmailId 
-FROM Employee e 
-JOIN EmpDept d ON e.Department = d.DeptId 
-WHERE e.Empid = d.DeptHead AND e.Empid NOT IN (SELECT Empid FROM EmpSalary WHERE IsPermanent = 'Yes');
+mysql> SELECT E.EmpName, E.EmailId
+    -> FROM Employee E
+    -> WHERE E.EmpId IN (
+    ->     SELECT ED.DeptHead
+    ->     FROM EmpDept ED
+    -> )
+    -> AND E.EmpId IN (
+    ->     SELECT ES.EmpId
+    ->     FROM EmpSalary ES
+    ->     WHERE ES.IsPermanent = 'No'
+    -> );
++---------+----------------+
+| EmpName | EmailId        |
++---------+----------------+
+| Neha    | neha@gmail.com |
++---------+----------------+
+1 row in set (0.00 sec)
 
 17. Select the employee whose department off is Monday.
-SELECT * 
-FROM Employee e 
-JOIN EmpDept d ON e.Department = d.DeptId 
-WHERE d.Dept_off = 'Monday';
+mysql> SELECT *
+    -> FROM Employee
+    -> WHERE Department IN (
+    ->     SELECT DeptId
+    ->     FROM EmpDept
+    ->     WHERE Dept_off = 'Monday'
+    -> );
++-------+----------+------------+------------+--------------------+-----------+
+| Empid | EmpName  | Department | ContactNo  | EmailId            | EmpHeadId |
++-------+----------+------------+------------+--------------------+-----------+
+|   101 | Isha     | E-101      | 1234567890 | isha@gmail.com     |       105 |
+|   103 | Neha     | E-101      | 1234567890 | neha@gmail.com     |       101 |
+|   105 | Abhishek | E-101      | 1234567890 | abhishek@gmail.com |       102 |
++-------+----------+------------+------------+--------------------+-----------+
+3 rows in set (0.00 sec)
+
 
 18. Select Indian clients' details.
-SELECT * FROM ClientTable WHERE cid = 'c-1';
+mysql> SELECT *
+    -> FROM ClientTable
+    -> WHERE cid IN (
+    ->     SELECT cid
+    ->     FROM Country
+    ->     WHERE cname = 'India'
+    -> );
++----------+------------+------+
+| ClientId | ClientName | cid  |
++----------+------------+------+
+| cl-1     | ABC Group  | c-1  |
+| cl-2     | PQR        | c-1  |
++----------+------------+------+
+2 rows in set (0.01 sec)
+
 
 19. Select the details of all employees working in the Development department.
-SELECT * FROM Employee WHERE Department = 'E-102';
+mysql> SELECT *
+    -> FROM Employee
+    -> WHERE Department IN (
+    ->     SELECT DeptId
+    ->     FROM EmpDept
+    ->     WHERE DeptName = 'Development'
+    -> );
++-------+---------+------------+------------+-----------------+-----------+
+| Empid | EmpName | Department | ContactNo  | EmailId         | EmpHeadId |
++-------+---------+------------+------------+-----------------+-----------+
+|   104 | Rahul   | E-102      | 1234567890 | rahul@yahoo.com |       105 |
++-------+---------+------------+------------+-----------------+-----------+
+1 row in set (0.00 sec)
+
 
 20. Create a procedure to calculate the average salaries of employees.
 DELIMITER //
