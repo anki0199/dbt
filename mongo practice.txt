@@ -1,0 +1,1140 @@
+C:\Users\dac.STUDENTSDC>mongosh
+Current Mongosh Log ID: 658bcb3cc68d67dc872506d8
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.1
+Using MongoDB:          7.0.4
+Using Mongosh:          2.1.1
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+------
+   The server generated these startup warnings when booting
+   2023-12-27T12:27:06.200+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin   40.00 KiB
+config  12.00 KiB
+local   40.00 KiB
+test> use library
+switched to db library
+library> db.books.insert({refno:1001,name:'python progr',author:'shyam',coauthor:'rakesh',pages:350,price:450})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658bcd24c68d67dc872506d9') }
+}
+library> db.books.find()
+[
+  {
+    _id: ObjectId('658bcd24c68d67dc872506d9'),
+    refno: 1001,
+    name: 'python progr',
+    author: 'shyam',
+    coauthor: 'rakesh',
+    pages: 350,
+    price: 450
+  }
+]
+library> db.books.insert({refno:1002,name:'Java progr',author:'Amita',pages:300,price:500})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658bcd78c68d67dc872506da') }
+}
+library> db.books.find()
+[
+  {
+    _id: ObjectId('658bcd24c68d67dc872506d9'),
+    refno: 1001,
+    name: 'python progr',
+    author: 'shyam',
+    coauthor: 'rakesh',
+    pages: 350,
+    price: 450
+  },
+  {
+    _id: ObjectId('658bcd78c68d67dc872506da'),
+    refno: 1002,
+    name: 'Java progr',
+    author: 'Amita',
+    pages: 300,
+    price: 500
+  }
+]
+library> db.books.insert({refno:1003,name:'HTML',author:'Amita',coauthor:'Shyam',pages:225,price:300})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658bcf89c68d67dc872506db') }
+}
+library> db.books.find()
+[
+  {
+    _id: ObjectId('658bcd24c68d67dc872506d9'),
+    refno: 1001,
+    name: 'python progr',
+    author: 'shyam',
+    coauthor: 'rakesh',
+    pages: 350,
+    price: 450
+  },
+  {
+    _id: ObjectId('658bcd78c68d67dc872506da'),
+    refno: 1002,
+    name: 'Java progr',
+    author: 'Amita',
+    pages: 300,
+    price: 500
+  },
+  {
+    _id: ObjectId('658bcf89c68d67dc872506db'),
+    refno: 1003,
+    name: 'HTML',
+    author: 'Amita',
+    coauthor: 'Shyam',
+    pages: 225,
+    price: 300
+  }
+]
+library> db.books.insert({refno:1004,name:'MongoDB',author:'Shyam',pages:440,price:500})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658bcfd2c68d67dc872506dc') }
+}
+library> db.books.find()
+[
+  {
+    _id: ObjectId('658bcd24c68d67dc872506d9'),
+    refno: 1001,
+    name: 'python progr',
+    author: 'shyam',
+    coauthor: 'rakesh',
+    pages: 350,
+    price: 450
+  },
+  {
+    _id: ObjectId('658bcd78c68d67dc872506da'),
+    refno: 1002,
+    name: 'Java progr',
+    author: 'Amita',
+    pages: 300,
+    price: 500
+  },
+  {
+    _id: ObjectId('658bcf89c68d67dc872506db'),
+    refno: 1003,
+    name: 'HTML',
+    author: 'Amita',
+    coauthor: 'Shyam',
+    pages: 225,
+    price: 300
+  },
+  {
+    _id: ObjectId('658bcfd2c68d67dc872506dc'),
+    refno: 1004,
+    name: 'MongoDB',
+    author: 'Shyam',
+    pages: 440,
+    price: 500
+  }
+]
+library> db.books.insert({refno:1005,name:'MySQL',author:'Shrikant',coauthor:'Nitin',pages:330,price:630})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658bd03cc68d67dc872506dd') }
+}
+library> db.books.find()
+[
+  {
+    _id: ObjectId('658bcd24c68d67dc872506d9'),
+    refno: 1001,
+    name: 'python progr',
+    author: 'shyam',
+    coauthor: 'rakesh',
+    pages: 350,
+    price: 450
+  },
+  {
+    _id: ObjectId('658bcd78c68d67dc872506da'),
+    refno: 1002,
+    name: 'Java progr',
+    author: 'Amita',
+    pages: 300,
+    price: 500
+  },
+  {
+    _id: ObjectId('658bcf89c68d67dc872506db'),
+    refno: 1003,
+    name: 'HTML',
+    author: 'Amita',
+    coauthor: 'Shyam',
+    pages: 225,
+    price: 300
+  },
+  {
+    _id: ObjectId('658bcfd2c68d67dc872506dc'),
+    refno: 1004,
+    name: 'MongoDB',
+    author: 'Shyam',
+    pages: 440,
+    price: 500
+  },
+  {
+    _id: ObjectId('658bd03cc68d67dc872506dd'),
+    refno: 1005,
+    name: 'MySQL',
+    author: 'Shrikant',
+    coauthor: 'Nitin',
+    pages: 330,
+    price: 630
+  }
+]
+library> db.books.find().sort({pages:1})
+[
+  {
+    _id: ObjectId('658bcf89c68d67dc872506db'),
+    refno: 1003,
+    name: 'HTML',
+    author: 'Amita',
+    coauthor: 'Shyam',
+    pages: 225,
+    price: 300
+  },
+  {
+    _id: ObjectId('658bcd78c68d67dc872506da'),
+    refno: 1002,
+    name: 'Java progr',
+    author: 'Amita',
+    pages: 300,
+    price: 500
+  },
+  {
+    _id: ObjectId('658bd03cc68d67dc872506dd'),
+    refno: 1005,
+    name: 'MySQL',
+    author: 'Shrikant',
+    coauthor: 'Nitin',
+    pages: 330,
+    price: 630
+  },
+  {
+    _id: ObjectId('658bcd24c68d67dc872506d9'),
+    refno: 1001,
+    name: 'python progr',
+    author: 'shyam',
+    coauthor: 'rakesh',
+    pages: 350,
+    price: 450
+  },
+  {
+    _id: ObjectId('658bcfd2c68d67dc872506dc'),
+    refno: 1004,
+    name: 'MongoDB',
+    author: 'Shyam',
+    pages: 440,
+    price: 500
+  }
+]
+library> db.books.find().sort({pages:1}).pretty()
+[
+  {
+    _id: ObjectId('658bcf89c68d67dc872506db'),
+    refno: 1003,
+    name: 'HTML',
+    author: 'Amita',
+    coauthor: 'Shyam',
+    pages: 225,
+    price: 300
+  },
+  {
+    _id: ObjectId('658bcd78c68d67dc872506da'),
+    refno: 1002,
+    name: 'Java progr',
+    author: 'Amita',
+    pages: 300,
+    price: 500
+  },
+  {
+    _id: ObjectId('658bd03cc68d67dc872506dd'),
+    refno: 1005,
+    name: 'MySQL',
+    author: 'Shrikant',
+    coauthor: 'Nitin',
+    pages: 330,
+    price: 630
+  },
+  {
+    _id: ObjectId('658bcd24c68d67dc872506d9'),
+    refno: 1001,
+    name: 'python progr',
+    author: 'shyam',
+    coauthor: 'rakesh',
+    pages: 350,
+    price: 450
+  },
+  {
+    _id: ObjectId('658bcfd2c68d67dc872506dc'),
+    refno: 1004,
+    name: 'MongoDB',
+    author: 'Shyam',
+    pages: 440,
+    price: 500
+  }
+]
+library> db.books.find().sort({pages:-1})
+[
+  {
+    _id: ObjectId('658bcfd2c68d67dc872506dc'),
+    refno: 1004,
+    name: 'MongoDB',
+    author: 'Shyam',
+    pages: 440,
+    price: 500
+  },
+  {
+    _id: ObjectId('658bcd24c68d67dc872506d9'),
+    refno: 1001,
+    name: 'python progr',
+    author: 'shyam',
+    coauthor: 'rakesh',
+    pages: 350,
+    price: 450
+  },
+  {
+    _id: ObjectId('658bd03cc68d67dc872506dd'),
+    refno: 1005,
+    name: 'MySQL',
+    author: 'Shrikant',
+    coauthor: 'Nitin',
+    pages: 330,
+    price: 630
+  },
+  {
+    _id: ObjectId('658bcd78c68d67dc872506da'),
+    refno: 1002,
+    name: 'Java progr',
+    author: 'Amita',
+    pages: 300,
+    price: 500
+  },
+  {
+    _id: ObjectId('658bcf89c68d67dc872506db'),
+    refno: 1003,
+    name: 'HTML',
+    author: 'Amita',
+    coauthor: 'Shyam',
+    pages: 225,
+    price: 300
+  }
+]
+library> db.books.find({$or:[{author:"Amita"},{coauthor:'Shyam'}]})
+[
+  {
+    _id: ObjectId('658bcd78c68d67dc872506da'),
+    refno: 1002,
+    name: 'Java progr',
+    author: 'Amita',
+    pages: 300,
+    price: 500
+  },
+  {
+    _id: ObjectId('658bcf89c68d67dc872506db'),
+    refno: 1003,
+    name: 'HTML',
+    author: 'Amita',
+    coauthor: 'Shyam',
+    pages: 225,
+    price: 300
+  }
+]
+library> db.books.find({$or:[{author:"Amita"},{coauthor:'Amita'}]})
+[
+  {
+    _id: ObjectId('658bcd78c68d67dc872506da'),
+    refno: 1002,
+    name: 'Java progr',
+    author: 'Amita',
+    pages: 300,
+    price: 500
+  },
+  {
+    _id: ObjectId('658bcf89c68d67dc872506db'),
+    refno: 1003,
+    name: 'HTML',
+    author: 'Amita',
+    coauthor: 'Shyam',
+    pages: 225,
+    price: 300
+  }
+]
+library> db.books.find({$or:[{author:"Shyam"},{coauthor:'Shyam'}]})
+[
+  {
+    _id: ObjectId('658bcf89c68d67dc872506db'),
+    refno: 1003,
+    name: 'HTML',
+    author: 'Amita',
+    coauthor: 'Shyam',
+    pages: 225,
+    price: 300
+  },
+  {
+    _id: ObjectId('658bcfd2c68d67dc872506dc'),
+    refno: 1004,
+    name: 'MongoDB',
+    author: 'Shyam',
+    pages: 440,
+    price: 500
+  }
+]
+library> use cdacdb
+switched to db cdacdb
+cdacdb> show dbs
+admin     40.00 KiB
+config   108.00 KiB
+library   72.00 KiB
+local     40.00 KiB
+cdacdb> db.createCollection("courses")
+{ ok: 1 }
+cdacdb> show dbs
+admin     40.00 KiB
+cdacdb     8.00 KiB
+config   108.00 KiB
+library   72.00 KiB
+local     40.00 KiB
+cdacdb> db.courses.insert()
+MongoshInvalidInputError: [COMMON-10001] Missing required argument at position 0 (Collection.insert)
+cdacdb> db.courses.insert({cid:101,course_name:'DAC',NoOfStudents:240})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658bd3f7c68d67dc872506de') }
+}
+cdacdb> db.courses.find()
+[
+  {
+    _id: ObjectId('658bd3f7c68d67dc872506de'),
+    cid: 101,
+    course_name: 'DAC',
+    NoOfStudents: 240
+  }
+]
+cdacdb> db.courses.insert({cid:102,course_name:'DBDA',NoOfStudents:120})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658bd41bc68d67dc872506df') }
+}
+cdacdb> db.courses.insert({cid:103,course_name:'DAI',NoOfStudents:60,location:'Pune'})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658bd490c68d67dc872506e0') }
+}
+cdacdb> db.courses.find()
+[
+  {
+    _id: ObjectId('658bd3f7c68d67dc872506de'),
+    cid: 101,
+    course_name: 'DAC',
+    NoOfStudents: 240
+  },
+  {
+    _id: ObjectId('658bd41bc68d67dc872506df'),
+    cid: 102,
+    course_name: 'DBDA',
+    NoOfStudents: 120
+  },
+  {
+    _id: ObjectId('658bd490c68d67dc872506e0'),
+    cid: 103,
+    course_name: 'DAI',
+    NoOfStudents: 60,
+    location: 'Pune'
+  }
+]
+cdacdb> db.employee.insert({e_id:10,e_name:'Anita',salary:10000})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658bd4cdc68d67dc872506e1') }
+}
+cdacdb> db.employee.insert({e_id:11,e_name:'Shyam',salary:14000})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658bd4dcc68d67dc872506e2') }
+}
+cdacdb> db.employee.insert({e_id:12,e_name:'Ram',salary:16000,address:"pune"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658bd4fdc68d67dc872506e3') }
+}
+cdacdb> db.employee.find()
+[
+  {
+    _id: ObjectId('658bd4cdc68d67dc872506e1'),
+    e_id: 10,
+    e_name: 'Anita',
+    salary: 10000
+  },
+  {
+    _id: ObjectId('658bd4dcc68d67dc872506e2'),
+    e_id: 11,
+    e_name: 'Shyam',
+    salary: 14000
+  },
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Ram',
+    salary: 16000,
+    address: 'pune'
+  }
+]
+cdacdb> db.employee.insertOne({e_id:13,e_name:'Sakshi',salary:22000,address:"pune",hired_date:"20 July 22"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('658bd573c68d67dc872506e4')
+}
+cdacdb> db.employee.find()
+[
+  {
+    _id: ObjectId('658bd4cdc68d67dc872506e1'),
+    e_id: 10,
+    e_name: 'Anita',
+    salary: 10000
+  },
+  {
+    _id: ObjectId('658bd4dcc68d67dc872506e2'),
+    e_id: 11,
+    e_name: 'Shyam',
+    salary: 14000
+  },
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Ram',
+    salary: 16000,
+    address: 'pune'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    e_name: 'Sakshi',
+    salary: 22000,
+    address: 'pune',
+    hired_date: '20 July 22'
+  }
+]
+cdacdb> db.employee.insertMany([{e_id:14,e_name:'Gauri',salary:26000,address:"mumbai"},{author:"Amita",book_name:"Java prog"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('658bd5fec68d67dc872506e5'),
+    '1': ObjectId('658bd5fec68d67dc872506e6')
+  }
+}
+cdacdb> db.employee.find()
+[
+  {
+    _id: ObjectId('658bd4cdc68d67dc872506e1'),
+    e_id: 10,
+    e_name: 'Anita',
+    salary: 10000
+  },
+  {
+    _id: ObjectId('658bd4dcc68d67dc872506e2'),
+    e_id: 11,
+    e_name: 'Shyam',
+    salary: 14000
+  },
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Ram',
+    salary: 16000,
+    address: 'pune'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    e_name: 'Sakshi',
+    salary: 22000,
+    address: 'pune',
+    hired_date: '20 July 22'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e5'),
+    e_id: 14,
+    e_name: 'Gauri',
+    salary: 26000,
+    address: 'mumbai'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e6'),
+    author: 'Amita',
+    book_name: 'Java prog'
+  }
+]
+cdacdb> db.employee.update({e_name:'Ram'},{$set:{e_name:'Rama'})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:55)
+
+> 1 | db.employee.update({e_name:'Ram'},{$set:{e_name:'Rama'})
+    |                                                        ^
+  2 |
+
+cdacdb> db.employee.update({e_name:'Ram'},{$set:{e_name:'Rama'}})
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+cdacdb> db.employee.find()
+[
+  {
+    _id: ObjectId('658bd4cdc68d67dc872506e1'),
+    e_id: 10,
+    e_name: 'Anita',
+    salary: 10000
+  },
+  {
+    _id: ObjectId('658bd4dcc68d67dc872506e2'),
+    e_id: 11,
+    e_name: 'Shyam',
+    salary: 14000
+  },
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Rama',
+    salary: 16000,
+    address: 'pune'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    e_name: 'Sakshi',
+    salary: 22000,
+    address: 'pune',
+    hired_date: '20 July 22'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e5'),
+    e_id: 14,
+    e_name: 'Gauri',
+    salary: 26000,
+    address: 'mumbai'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e6'),
+    author: 'Amita',
+    book_name: 'Java prog'
+  }
+]
+cdacdb> db.employee.update({$set:{e_name:'Rama'}})
+MongoshInvalidInputError: [COMMON-10001] Missing required argument at position 1 (Collection.update)
+cdacdb> db.employee.update({address:"pune"},{$set:{address:"Banglore"}},{multi:true})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+cdacdb> db.employee.find()
+[
+  {
+    _id: ObjectId('658bd4cdc68d67dc872506e1'),
+    e_id: 10,
+    e_name: 'Anita',
+    salary: 10000
+  },
+  {
+    _id: ObjectId('658bd4dcc68d67dc872506e2'),
+    e_id: 11,
+    e_name: 'Shyam',
+    salary: 14000
+  },
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Rama',
+    salary: 16000,
+    address: 'Banglore'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    e_name: 'Sakshi',
+    salary: 22000,
+    address: 'Banglore',
+    hired_date: '20 July 22'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e5'),
+    e_id: 14,
+    e_name: 'Gauri',
+    salary: 26000,
+    address: 'mumbai'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e6'),
+    author: 'Amita',
+    book_name: 'Java prog'
+  }
+]
+cdacdb> db.employee.updateMany({address:"Banglore"},{$set:{address:"Hyderabad"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+cdacdb> db.employee.find()
+[
+  {
+    _id: ObjectId('658bd4cdc68d67dc872506e1'),
+    e_id: 10,
+    e_name: 'Anita',
+    salary: 10000
+  },
+  {
+    _id: ObjectId('658bd4dcc68d67dc872506e2'),
+    e_id: 11,
+    e_name: 'Shyam',
+    salary: 14000
+  },
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Rama',
+    salary: 16000,
+    address: 'Hyderabad'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    e_name: 'Sakshi',
+    salary: 22000,
+    address: 'Hyderabad',
+    hired_date: '20 July 22'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e5'),
+    e_id: 14,
+    e_name: 'Gauri',
+    salary: 26000,
+    address: 'mumbai'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e6'),
+    author: 'Amita',
+    book_name: 'Java prog'
+  }
+]
+cdacdb> db.employee.updateMany({Address:"Banglore"},{$set:{Address:"Hyderabad"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+cdacdb> db.employee.find()
+[
+  {
+    _id: ObjectId('658bd4cdc68d67dc872506e1'),
+    e_id: 10,
+    e_name: 'Anita',
+    salary: 10000
+  },
+  {
+    _id: ObjectId('658bd4dcc68d67dc872506e2'),
+    e_id: 11,
+    e_name: 'Shyam',
+    salary: 14000
+  },
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Rama',
+    salary: 16000,
+    address: 'Hyderabad'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    e_name: 'Sakshi',
+    salary: 22000,
+    address: 'Hyderabad',
+    hired_date: '20 July 22'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e5'),
+    e_id: 14,
+    e_name: 'Gauri',
+    salary: 26000,
+    address: 'mumbai'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e6'),
+    author: 'Amita',
+    book_name: 'Java prog'
+  }
+]
+cdacdb> db.employee.updateMany({address:"Banglore"},{$set:{Address:"Hyderabad"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+cdacdb> db.employee.updateMany({address:"Banglore"},{$set:{Address:"Hyderabad1"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+cdacdb> db.employee.updateMany({address:"Banglore"},{$set:{Address:"Hyderabad"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+cdacdb> db.employee.updateMany({address:"hyderabad"},{$set:{Address:"pune"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+cdacdb> db.employee.updateMany({address:"hyderabad"},{$set:{address:"pune"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+cdacdb> db.employee.find()
+[eprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+  {cknowledged: true, deletedCount: 1 }
+    _id: ObjectId('658bd4cdc68d67dc872506e1'),
+    e_id: 10,
+    e_name: 'Anita',
+    salary: 10000
+  },
+  {
+    _id: ObjectId('658bd4dcc68d67dc872506e2'),
+    e_id: 11,
+    e_name: 'Shyam',
+    salary: 14000
+  },
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Rama',
+    salary: 16000,
+    address: 'Hyderabad'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    e_name: 'Sakshi',
+    salary: 22000,
+    address: 'Hyderabad',
+    hired_date: '20 July 22'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e5'),
+    e_id: 14,
+    e_name: 'Gauri',
+    salary: 26000,
+    address: 'mumbai'
+  }
+]
+cdacdb> db.employee.insertOne({author:"Amita",book_name:"Java prog"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('658bd95dc68d67dc872506e7')
+}
+cdacdb> db.employee.find()
+[
+  {
+    _id: ObjectId('658bd4cdc68d67dc872506e1'),
+    e_id: 10,
+    e_name: 'Anita',
+    salary: 10000
+  },
+  {
+    _id: ObjectId('658bd4dcc68d67dc872506e2'),
+    e_id: 11,
+    e_name: 'Shyam',
+    salary: 14000
+  },
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Rama',
+    salary: 16000,
+    address: 'Hyderabad'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    e_name: 'Sakshi',
+    salary: 22000,
+    address: 'Hyderabad',
+    hired_date: '20 July 22'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e5'),
+    e_id: 14,
+    e_name: 'Gauri',
+    salary: 26000,
+    address: 'mumbai'
+  },
+  {
+    _id: ObjectId('658bd95dc68d67dc872506e7'),
+    author: 'Amita',
+    book_name: 'Java prog'
+  }
+]
+cdacdb> db.employee.deleteOne({author:"Amita"})
+{ acknowledged: true, deletedCount: 1 }
+cdacdb> db.employee.find()
+[
+  {
+    _id: ObjectId('658bd4cdc68d67dc872506e1'),
+    e_id: 10,
+    e_name: 'Anita',
+    salary: 10000
+  },
+  {
+    _id: ObjectId('658bd4dcc68d67dc872506e2'),
+    e_id: 11,
+    e_name: 'Shyam',
+    salary: 14000
+  },
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Rama',
+    salary: 16000,
+    address: 'Hyderabad'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    e_name: 'Sakshi',
+    salary: 22000,
+    address: 'Hyderabad',
+    hired_date: '20 July 22'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e5'),
+    e_id: 14,
+    e_name: 'Gauri',
+    salary: 26000,
+    address: 'mumbai'
+  }
+]
+cdacdb> db.employee.deleteOne({author:"Amita"})
+{ acknowledged: true, deletedCount: 0 }
+cdacdb> db.employee.insertOne({author:"Amita",book_name:"Java prog"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('658bd9b6c68d67dc872506e8')
+}
+cdacdb> db.employee.insertOne({author:"Amita",book_name:"Java prog2"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('658bd9bac68d67dc872506e9')
+}
+cdacdb> db.employee.remove({author:"Amita"})
+{ acknowledged: true, deletedCount: 2 }
+cdacdb> db.employee.insertOne({author:"Amita",book_name:"Java prog"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('658bd9cdc68d67dc872506ea')
+}
+cdacdb> db.employee.find({address:"pune"})
+
+cdacdb> db.employee.find({address:"Hyderabad"})
+[
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Rama',
+    salary: 16000,
+    address: 'Hyderabad'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    e_name: 'Sakshi',
+    salary: 22000,
+    address: 'Hyderabad',
+    hired_date: '20 July 22'
+  }
+]
+cdacdb> db.employee.find({},{address:"Hyderabad"})
+[
+  { _id: ObjectId('658bd4cdc68d67dc872506e1'), address: 'Hyderabad' },
+  { _id: ObjectId('658bd4dcc68d67dc872506e2'), address: 'Hyderabad' },
+  { _id: ObjectId('658bd4fdc68d67dc872506e3'), address: 'Hyderabad' },
+  { _id: ObjectId('658bd573c68d67dc872506e4'), address: 'Hyderabad' },
+  { _id: ObjectId('658bd5fec68d67dc872506e5'), address: 'Hyderabad' },
+  { _id: ObjectId('658bd9cdc68d67dc872506ea'), address: 'Hyderabad' }
+]
+cdacdb> db.employee.find()
+[
+  {
+    _id: ObjectId('658bd4cdc68d67dc872506e1'),
+    e_id: 10,
+    e_name: 'Anita',
+    salary: 10000
+  },
+  {
+    _id: ObjectId('658bd4dcc68d67dc872506e2'),
+    e_id: 11,
+    e_name: 'Shyam',
+    salary: 14000
+  },
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Rama',
+    salary: 16000,
+    address: 'Hyderabad'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    e_name: 'Sakshi',
+    salary: 22000,
+    address: 'Hyderabad',
+    hired_date: '20 July 22'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e5'),
+    e_id: 14,
+    e_name: 'Gauri',
+    salary: 26000,
+    address: 'mumbai'
+  },
+  {
+    _id: ObjectId('658bd9cdc68d67dc872506ea'),
+    author: 'Amita',
+    book_name: 'Java prog'
+  }
+]
+cdacdb> db.employee.find({},{address:1})
+[
+  { _id: ObjectId('658bd4cdc68d67dc872506e1') },
+  { _id: ObjectId('658bd4dcc68d67dc872506e2') },
+  { _id: ObjectId('658bd4fdc68d67dc872506e3'), address: 'Hyderabad' },
+  { _id: ObjectId('658bd573c68d67dc872506e4'), address: 'Hyderabad' },
+  { _id: ObjectId('658bd5fec68d67dc872506e5'), address: 'mumbai' },
+  { _id: ObjectId('658bd9cdc68d67dc872506ea') }
+]
+cdacdb> db.employee.find({},{_id:1,e_name:0})
+[
+  {
+    _id: ObjectId('658bd4cdc68d67dc872506e1'),
+    e_id: 10,
+    salary: 10000
+  },
+  {
+    _id: ObjectId('658bd4dcc68d67dc872506e2'),
+    e_id: 11,
+    salary: 14000
+  },
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    salary: 16000,
+    address: 'Hyderabad'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    salary: 22000,
+    address: 'Hyderabad',
+    hired_date: '20 July 22'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e5'),
+    e_id: 14,
+    salary: 26000,
+    address: 'mumbai'
+  },
+  {
+    _id: ObjectId('658bd9cdc68d67dc872506ea'),
+    author: 'Amita',
+    book_name: 'Java prog'
+  }
+]
+cdacdb> db.employee.find({},{_id:0,e_name:1})
+[
+  { e_name: 'Anita' },
+  { e_name: 'Shyam' },
+  { e_name: 'Rama' },
+  { e_name: 'Sakshi' },
+  { e_name: 'Gauri' },
+  {}
+]
+cdacdb> db.employee.find({},{e_name:1})
+[
+  { _id: ObjectId('658bd4cdc68d67dc872506e1'), e_name: 'Anita' },
+  { _id: ObjectId('658bd4dcc68d67dc872506e2'), e_name: 'Shyam' },
+  { _id: ObjectId('658bd4fdc68d67dc872506e3'), e_name: 'Rama' },
+  { _id: ObjectId('658bd573c68d67dc872506e4'), e_name: 'Sakshi' },
+  { _id: ObjectId('658bd5fec68d67dc872506e5'), e_name: 'Gauri' },
+  { _id: ObjectId('658bd9cdc68d67dc872506ea') }
+]
+cdacdb> db.employee.find({$or:[{address:"pune"},{address:"mumbai"}]})
+[
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e5'),
+    e_id: 14,
+    e_name: 'Gauri',
+    salary: 26000,
+    address: 'mumbai'
+  }
+]
+cdacdb> db.employee.find({$or:[{address:"Hyderabad"},{address:"mumbai"}]})
+[
+  {
+    _id: ObjectId('658bd4fdc68d67dc872506e3'),
+    e_id: 12,
+    e_name: 'Rama',
+    salary: 16000,
+    address: 'Hyderabad'
+  },
+  {
+    _id: ObjectId('658bd573c68d67dc872506e4'),
+    e_id: 13,
+    e_name: 'Sakshi',
+    salary: 22000,
+    address: 'Hyderabad',
+    hired_date: '20 July 22'
+  },
+  {
+    _id: ObjectId('658bd5fec68d67dc872506e5'),
+    e_id: 14,
+    e_name: 'Gauri',
+    salary: 26000,
+    address: 'mumbai'
+  }
+]
+cdacdb>

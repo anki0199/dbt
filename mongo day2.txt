@@ -1,0 +1,845 @@
+Microsoft Windows [Version 10.0.19045.3803]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\dac.STUDENTSDC>mongosh
+Current Mongosh Log ID: 658d3e78e0dc89f2ae7009f4
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.1
+Using MongoDB:          7.0.4
+Using Mongosh:          2.1.1
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2023-12-27T12:27:06.200+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use DAC
+switched to db DAC
+DAC>
+
+DAC> db.Pizzass.aggregate([{ $group: { _id: "_id", avgAmount: { $avg: { $multiply: ["$price", "$size"] } }, avgQty: { $a$avg: "$size" } } }] )
+[
+  {
+    _id: '_id',
+    avgAmount: 3611.6666666666665,
+    avgQty: 5.333333333333333
+  }
+]
+DAC> show dbs;
+DAC        428.00 KiB
+JulyDBNew    8.00 KiB
+admin       40.00 KiB
+cdacdb     144.00 KiB
+config     108.00 KiB
+library     72.00 KiB
+local       40.00 KiB
+myMongDB    40.00 KiB
+test         8.00 KiB
+DAC> show dbs
+DAC        428.00 KiB
+JulyDBNew    8.00 KiB
+admin       40.00 KiB
+cdacdb     144.00 KiB
+config     108.00 KiB
+library     72.00 KiB
+local       40.00 KiB
+myMongDB    40.00 KiB
+test         8.00 KiB
+DAC> use employee
+switched to db employee
+employee> show dbs
+DAC        428.00 KiB
+JulyDBNew    8.00 KiB
+admin       40.00 KiB
+cdacdb     144.00 KiB
+config     108.00 KiB
+library     72.00 KiB
+local       40.00 KiB
+myMongDB    40.00 KiB
+test         8.00 KiB
+employee> db.createCollection("emp_data")
+{ ok: 1 }
+employee> show collections
+emp_data
+employee> show tables;
+emp_data
+employee> db.createCollection("dept")
+{ ok: 1 }
+employee> show collections
+dept
+emp_data
+employee> db.emp_data.insert({
+... emp_id:101,
+... emp_name :"gauri",
+... emp_salary:10000,
+... emp_city:"beed",
+... emp_age:21
+... })
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658d46a6e0dc89f2ae7009f5') }
+}
+employee> db.emp_data.insert({
+... emp_id:102,
+... emp_name:"ankita",
+... emp_salary:200000,
+... emp_city:"pen",
+... emp_age:23
+... })
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658d4732e0dc89f2ae7009f6') }
+}
+employee> db.emp_data.insert({ emp_id: 103, emp_name: "anita", emp_salary: 300000, emp_city: "pune", emp_age: 24 })
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658d4770e0dc89f2ae7009f7') }
+}
+employee> db.employee.find()
+
+employee> db.emp_data.find()
+[
+  {
+    _id: ObjectId('658d46a6e0dc89f2ae7009f5'),
+    emp_id: 101,
+    emp_name: 'gauri',
+    emp_salary: 10000,
+    emp_city: 'beed',
+    emp_age: 21
+  },
+  {
+    _id: ObjectId('658d4732e0dc89f2ae7009f6'),
+    emp_id: 102,
+    emp_name: 'ankita',
+    emp_salary: 200000,
+    emp_city: 'pen',
+    emp_age: 23
+  },
+  {
+    _id: ObjectId('658d4770e0dc89f2ae7009f7'),
+    emp_id: 103,
+    emp_name: 'anita',
+    emp_salary: 300000,
+    emp_city: 'pune',
+    emp_age: 24
+  }
+]
+employee> db.emp_data.find().sort()
+[
+  {
+    _id: ObjectId('658d46a6e0dc89f2ae7009f5'),
+    emp_id: 101,
+    emp_name: 'gauri',
+    emp_salary: 10000,
+    emp_city: 'beed',
+    emp_age: 21
+  },
+  {
+    _id: ObjectId('658d4732e0dc89f2ae7009f6'),
+    emp_id: 102,
+    emp_name: 'ankita',
+    emp_salary: 200000,
+    emp_city: 'pen',
+    emp_age: 23
+  },
+  {
+    _id: ObjectId('658d4770e0dc89f2ae7009f7'),
+    emp_id: 103,
+    emp_name: 'anita',
+    emp_salary: 300000,
+    emp_city: 'pune',
+    emp_age: 24
+  }
+]
+employee> db.emp_data.find().sort({id:-1})
+[
+  {
+    _id: ObjectId('658d46a6e0dc89f2ae7009f5'),
+    emp_id: 101,
+    emp_name: 'gauri',
+    emp_salary: 10000,
+    emp_city: 'beed',
+    emp_age: 21
+  },
+  {
+    _id: ObjectId('658d4732e0dc89f2ae7009f6'),
+    emp_id: 102,
+    emp_name: 'ankita',
+    emp_salary: 200000,
+    emp_city: 'pen',
+    emp_age: 23
+  },
+  {
+    _id: ObjectId('658d4770e0dc89f2ae7009f7'),
+    emp_id: 103,
+    emp_name: 'anita',
+    emp_salary: 300000,
+    emp_city: 'pune',
+    emp_age: 24
+  }
+]
+employee> db.emp_data.find().sort({_id:-1})
+[
+  {
+    _id: ObjectId('658d4770e0dc89f2ae7009f7'),
+    emp_id: 103,
+    emp_name: 'anita',
+    emp_salary: 300000,
+    emp_city: 'pune',
+    emp_age: 24
+  },
+  {
+    _id: ObjectId('658d4732e0dc89f2ae7009f6'),
+    emp_id: 102,
+    emp_name: 'ankita',
+    emp_salary: 200000,
+    emp_city: 'pen',
+    emp_age: 23
+  },
+  {
+    _id: ObjectId('658d46a6e0dc89f2ae7009f5'),
+    emp_id: 101,
+    emp_name: 'gauri',
+    emp_salary: 10000,
+    emp_city: 'beed',
+    emp_age: 21
+  }
+]
+employee> show collections
+dept
+emp_data
+employee> db.dept.drop()
+true
+employee> show collections
+emp_data
+employee> use  testdb
+switched to db testdb
+testdb> db.createCollection("test")
+{ ok: 1 }
+testdb> db.test..find({})
+Uncaught:
+SyntaxError: Unexpected token (1:8)
+
+> 1 | db.test..find({})
+    |         ^
+  2 |
+
+testdb> db.test.find({})
+
+testdb> db.test.find({},{})
+
+testdb> db.test.insertOne({fname:"g",lname:"k"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('658d4a43e0dc89f2ae7009f8')
+}
+testdb> db.test.insertOne({fname:"h",lname:"d"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('658d4a6ce0dc89f2ae7009f9')
+}
+testdb> db.test.find()
+[
+  { _id: ObjectId('658d4a43e0dc89f2ae7009f8'), fname: 'g', lname: 'k' },
+  { _id: ObjectId('658d4a6ce0dc89f2ae7009f9'), fname: 'h', lname: 'd' }
+]
+testdb> db.test.insertOne([{fname:"s",lname:"k"}])
+{
+  acknowledged: true,
+  insertedId: ObjectId('658d4ac9e0dc89f2ae7009fa')
+}
+testdb> db.test.find()
+[
+  { _id: ObjectId('658d4a43e0dc89f2ae7009f8'), fname: 'g', lname: 'k' },
+  { _id: ObjectId('658d4a6ce0dc89f2ae7009f9'), fname: 'h', lname: 'd' },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa')
+  }
+]
+testdb> db.test.insertOne([{fname:"s",lname:"k"},{fname:"i",lname:"p"}])
+{
+  acknowledged: true,
+  insertedId: ObjectId('658d4afce0dc89f2ae7009fb')
+}
+testdb> db.test.find()
+[
+  { _id: ObjectId('658d4a43e0dc89f2ae7009f8'), fname: 'g', lname: 'k' },
+  { _id: ObjectId('658d4a6ce0dc89f2ae7009f9'), fname: 'h', lname: 'd' },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa')
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb')
+  }
+]
+testdb> db.test.find({lname:"k"}{})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:24)
+
+> 1 | db.test.find({lname:"k"}{})
+    |                         ^
+  2 |
+
+testdb> db.test.find({lname:"k"},{})
+[
+  { _id: ObjectId('658d4a43e0dc89f2ae7009f8'), fname: 'g', lname: 'k' }
+]
+testdb> db.test.find({lname:{$eq:"k"}},{})
+[
+  { _id: ObjectId('658d4a43e0dc89f2ae7009f8'), fname: 'g', lname: 'k' }
+]
+testdb> db.test.find({lname:{$eq:/k/}},{})
+
+testdb> db.test.find({lname:/k/},{})
+[
+  { _id: ObjectId('658d4a43e0dc89f2ae7009f8'), fname: 'g', lname: 'k' }
+]
+testdb> db.test.find({fname:{$in:["g","h"]}},{})
+[
+  { _id: ObjectId('658d4a43e0dc89f2ae7009f8'), fname: 'g', lname: 'k' },
+  { _id: ObjectId('658d4a6ce0dc89f2ae7009f9'), fname: 'h', lname: 'd' }
+]
+testdb> db.test.find({lname:{$eq:["g","h"]}},{lname:1})
+
+testdb> db.test.find({lname:{$in:["g","h"]}},{lname:1})
+
+testdb> db.test.find({fname:{$in:["g","h"]}},{lname:1})
+[
+  { _id: ObjectId('658d4a43e0dc89f2ae7009f8'), lname: 'k' },
+  { _id: ObjectId('658d4a6ce0dc89f2ae7009f9'), lname: 'd' }
+]
+testdb> db.test.updateMany({},{$set:{lname:"updated name"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+testdb> db.test.find()
+[
+  {
+    _id: ObjectId('658d4a43e0dc89f2ae7009f8'),
+    fname: 'g',
+    lname: 'updated name'
+  },
+  {
+    _id: ObjectId('658d4a6ce0dc89f2ae7009f9'),
+    fname: 'h',
+    lname: 'updated name'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa'),
+    lname: 'updated name'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb'),
+    lname: 'updated name'
+  }
+]
+testdb> db.test.updateMany({lname:"updated name"},{$set:{lname:"updated lname again"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+testdb> db.test.find()
+[
+  {
+    _id: ObjectId('658d4a43e0dc89f2ae7009f8'),
+    fname: 'g',
+    lname: 'updated lname again'
+  },
+  {
+    _id: ObjectId('658d4a6ce0dc89f2ae7009f9'),
+    fname: 'h',
+    lname: 'updated lname again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa'),
+    lname: 'updated lname again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb'),
+    lname: 'updated lname again'
+  }
+]
+testdb> db.test.updateMany({lname:"updated name again"},{$set:{lname:"updated lname again again"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+testdb> db.test.find()
+[
+  {
+    _id: ObjectId('658d4a43e0dc89f2ae7009f8'),
+    fname: 'g',
+    lname: 'updated lname again'
+  },
+  {
+    _id: ObjectId('658d4a6ce0dc89f2ae7009f9'),
+    fname: 'h',
+    lname: 'updated lname again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa'),
+    lname: 'updated lname again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb'),
+    lname: 'updated lname again'
+  }
+]
+testdb> db.test.updateMany({lname:"updated lname again"},{$set:{lname:"updated lname again again"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+testdb> db.test.find()
+[
+  {
+    _id: ObjectId('658d4a43e0dc89f2ae7009f8'),
+    fname: 'g',
+    lname: 'updated lname again again'
+  },
+  {
+    _id: ObjectId('658d4a6ce0dc89f2ae7009f9'),
+    fname: 'h',
+    lname: 'updated lname again again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa'),
+    lname: 'updated lname again again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb'),
+    lname: 'updated lname again again'
+  }
+]
+testdb> db.test.updateOne({lname:"updated lname again"},{$set:{lname:"updated lname again again"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+testdb> db.test.updateOne({lname:"updated lname again"},{$set:{lname:"updated lname again again3"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+testdb> db.test.find()
+[
+  {
+    _id: ObjectId('658d4a43e0dc89f2ae7009f8'),
+    fname: 'g',
+    lname: 'updated lname again again'
+  },
+  {
+    _id: ObjectId('658d4a6ce0dc89f2ae7009f9'),
+    fname: 'h',
+    lname: 'updated lname again again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa'),
+    lname: 'updated lname again again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb'),
+    lname: 'updated lname again again'
+  }
+]
+testdb> db.test.updateOne({lname:"updated lname again again"},{$set:{lname:"updated lname again again3"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+testdb> db.test.find()
+[
+  {
+    _id: ObjectId('658d4a43e0dc89f2ae7009f8'),
+    fname: 'g',
+    lname: 'updated lname again again3'
+  },
+  {
+    _id: ObjectId('658d4a6ce0dc89f2ae7009f9'),
+    fname: 'h',
+    lname: 'updated lname again again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa'),
+    lname: 'updated lname again again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb'),
+    lname: 'updated lname again again'
+  }
+]
+testdb> db.test.deleteOne()
+MongoshInvalidInputError: [COMMON-10001] Missing required argument at position 0 (Collection.deleteOne)
+testdb> db.test.deleteOne({})
+{ acknowledged: true, deletedCount: 1 }
+testdb> db.test.find()
+[
+  {
+    _id: ObjectId('658d4a6ce0dc89f2ae7009f9'),
+    fname: 'h',
+    lname: 'updated lname again again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa'),
+    lname: 'updated lname again again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb'),
+    lname: 'updated lname again again'
+  }
+]
+testdb> db.test.insertOne({fname:"gauri",course:["dac","dbda"]})
+{
+  acknowledged: true,
+  insertedId: ObjectId('658d4ee7e0dc89f2ae7009fc')
+}
+testdb> db.test.find()
+[
+  {
+    _id: ObjectId('658d4a6ce0dc89f2ae7009f9'),
+    fname: 'h',
+    lname: 'updated lname again again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa'),
+    lname: 'updated lname again again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb'),
+    lname: 'updated lname again again'
+  },
+  {
+    _id: ObjectId('658d4ee7e0dc89f2ae7009fc'),
+    fname: 'gauri',
+    course: [ 'dac', 'dbda' ]
+  }
+]
+testdb> db.test.insertOne({fname:"ankita",course:["dac","dbda","dai"]})
+{
+  acknowledged: true,
+  insertedId: ObjectId('658d4f24e0dc89f2ae7009fd')
+}
+testdb> db.test.find()
+[
+  {
+    _id: ObjectId('658d4a6ce0dc89f2ae7009f9'),
+    fname: 'h',
+    lname: 'updated lname again again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa'),
+    lname: 'updated lname again again'
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb'),
+    lname: 'updated lname again again'
+  },
+  {
+    _id: ObjectId('658d4ee7e0dc89f2ae7009fc'),
+    fname: 'gauri',
+    course: [ 'dac', 'dbda' ]
+  },
+  {
+    _id: ObjectId('658d4f24e0dc89f2ae7009fd'),
+    fname: 'ankita',
+    course: [ 'dac', 'dbda', 'dai' ]
+  }
+]
+testdb> db.test.updateMany({},{$addToSet:{course:["dhpcsa"]}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+testdb> db.test.find()
+[
+  {
+    _id: ObjectId('658d4a6ce0dc89f2ae7009f9'),
+    fname: 'h',
+    lname: 'updated lname again again',
+    course: [ [ 'dhpcsa' ] ]
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa'),
+    lname: 'updated lname again again',
+    course: [ [ 'dhpcsa' ] ]
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb'),
+    lname: 'updated lname again again',
+    course: [ [ 'dhpcsa' ] ]
+  },
+  {
+    _id: ObjectId('658d4ee7e0dc89f2ae7009fc'),
+    fname: 'gauri',
+    course: [ 'dac', 'dbda', [ 'dhpcsa' ] ]
+  },
+  {
+    _id: ObjectId('658d4f24e0dc89f2ae7009fd'),
+    fname: 'ankita',
+    course: [ 'dac', 'dbda', 'dai', [ 'dhpcsa' ] ]
+  }
+]
+testdb> db.test.updateMany({},{$addToSet:{course:"dhpcsa"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+testdb> db.test.find()
+[
+  {
+    _id: ObjectId('658d4a6ce0dc89f2ae7009f9'),
+    fname: 'h',
+    lname: 'updated lname again again',
+    course: [ [ 'dhpcsa' ], 'dhpcsa' ]
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa'),
+    lname: 'updated lname again again',
+    course: [ [ 'dhpcsa' ], 'dhpcsa' ]
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb'),
+    lname: 'updated lname again again',
+    course: [ [ 'dhpcsa' ], 'dhpcsa' ]
+  },
+  {
+    _id: ObjectId('658d4ee7e0dc89f2ae7009fc'),
+    fname: 'gauri',
+    course: [ 'dac', 'dbda', [ 'dhpcsa' ], 'dhpcsa' ]
+  },
+  {
+    _id: ObjectId('658d4f24e0dc89f2ae7009fd'),
+    fname: 'ankita',
+    course: [ 'dac', 'dbda', 'dai', [ 'dhpcsa' ], 'dhpcsa' ]
+  }
+]
+testdb> db.test.updateMany({},{$addToSet:{course:"dhpcsa"}}
+... )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+testdb> db.test.find({course:{$eleMatch:{"dai"}}})
+Uncaught:
+SyntaxError: Unexpected token (1:38)
+
+> 1 | db.test.find({course:{$eleMatch:{"dai"}}})
+    |                                       ^
+  2 |
+
+testdb> db.test.find({course:{$eleMatch:{"dai"}}},{})
+Uncaught:
+SyntaxError: Unexpected token (1:38)
+
+> 1 | db.test.find({course:{$eleMatch:{"dai"}}},{})
+    |                                       ^
+  2 |
+
+testdb> db.test.find({course:{$eleMatch:{course:"dai"}}},{})
+MongoServerError: unknown operator: $eleMatch
+testdb> db.test.find({course:{$elemMatch:{course:"dai"}}},{})
+
+testdb> db.test.find({course:{$elemMatch:{"dai"}}},{})
+Uncaught:
+SyntaxError: Unexpected token (1:39)
+
+> 1 | db.test.find({course:{$elemMatch:{"dai"}}},{})
+    |                                        ^
+  2 |
+
+testdb> db.test.find({course:{$elemMatch:{"dai"}},{})
+Uncaught:
+SyntaxError: Unexpected token (1:39)
+
+> 1 | db.test.find({course:{$elemMatch:{"dai"}},{})
+    |                                        ^
+  2 |
+
+testdb> db.test.find({course:{$elemMatch:{$eq:"dai"}}},{})
+[
+  {
+    _id: ObjectId('658d4f24e0dc89f2ae7009fd'),
+    fname: 'ankita',
+    course: [ 'dac', 'dbda', 'dai', [ 'dhpcsa' ], 'dhpcsa' ]
+  }
+]
+testdb> db.test.getIndexes()
+[ { v: 2, key: { _id: 1 }, name: '_id_' } ]
+testdb> db.test.createIndexe({fname:1})
+TypeError: db.test.createIndexe is not a function
+testdb> db.test.createIndex({fname:1})
+fname_1
+testdb> db.test.getIndex()
+TypeError: db.test.getIndex is not a function
+testdb> db.test.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { fname: 1 }, name: 'fname_1' }
+]
+testdb> db.test.createIndex({course:1},{name:"my name"})
+my name
+testdb> db.test.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { fname: 1 }, name: 'fname_1' },
+  { v: 2, key: { course: 1 }, name: 'my name' }
+]
+testdb> db.test.find({},{})
+[
+  {
+    _id: ObjectId('658d4a6ce0dc89f2ae7009f9'),
+    fname: 'h',
+    lname: 'updated lname again again',
+    course: [ [ 'dhpcsa' ], 'dhpcsa' ]
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    _id: ObjectId('658d4ac9e0dc89f2ae7009fa'),
+    lname: 'updated lname again again',
+    course: [ [ 'dhpcsa' ], 'dhpcsa' ]
+  },
+  {
+    '0': { fname: 's', lname: 'k' },
+    '1': { fname: 'i', lname: 'p' },
+    _id: ObjectId('658d4afce0dc89f2ae7009fb'),
+    lname: 'updated lname again again',
+    course: [ [ 'dhpcsa' ], 'dhpcsa' ]
+  },
+  {
+    _id: ObjectId('658d4ee7e0dc89f2ae7009fc'),
+    fname: 'gauri',
+    course: [ 'dac', 'dbda', [ 'dhpcsa' ], 'dhpcsa' ]
+  },
+  {
+    _id: ObjectId('658d4f24e0dc89f2ae7009fd'),
+    fname: 'ankita',
+    course: [ 'dac', 'dbda', 'dai', [ 'dhpcsa' ], 'dhpcsa' ]
+  }
+]
+testdb> db.test.aggregate([{$match:{fname:"gaurav"}}])
+
+testdb> db.test.aggregate([{$match:{fname:"gauri"}}])
+[
+  {
+    _id: ObjectId('658d4ee7e0dc89f2ae7009fc'),
+    fname: 'gauri',
+    course: [ 'dac', 'dbda', [ 'dhpcsa' ], 'dhpcsa' ]
+  }
+]
+testdb> db.test.aggregate([{$match:{fname:"ankita"}}],[{$project:{course:1}}])
+[
+  {
+    _id: ObjectId('658d4f24e0dc89f2ae7009fd'),
+    fname: 'ankita',
+    course: [ 'dac', 'dbda', 'dai', [ 'dhpcsa' ], 'dhpcsa' ]
+  }
+]
+testdb> db.test.aggregate([{$match:{fname:"ankita"}},{$project:{course:1}}])
+[
+  {
+    _id: ObjectId('658d4f24e0dc89f2ae7009fd'),
+    course: [ 'dac', 'dbda', 'dai', [ 'dhpcsa' ], 'dhpcsa' ]
+  }
+]
+testdb> db.test.aggregate([{$group:{_id:"$fname"}}])
+[ { _id: null }, { _id: 'ankita' }, { _id: 'gauri' }, { _id: 'h' } ]
+testdb> db.test.aggregate([{$group:{_id:"$fname"},cnt:{$sum:1}}])
+MongoServerError: A pipeline stage specification object must contain exactly one field.
+testdb> db.test.aggregate([{$group:{_id:"$fname",cnt:{$sum:1}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:54)
+
+> 1 | db.test.aggregate([{$group:{_id:"$fname",cnt:{$sum:1}}])
+    |                                                       ^
+  2 |
+
+testdb> db.test.aggregate([{$group:{_id:"$fname",cnt:{$sum:1}}}])
+[
+  { _id: 'h', cnt: 1 },
+  { _id: null, cnt: 2 },
+  { _id: 'ankita', cnt: 1 },
+  { _id: 'gauri', cnt: 1 }
+]
+testdb> db.test.aggregate([{$group:{_id:"$fname",cnt:{$sum:1}}}]).pretty()
+[
+  { _id: 'gauri', cnt: 1 },
+  { _id: 'ankita', cnt: 1 },
+  { _id: 'h', cnt: 1 },
+  { _id: null, cnt: 2 }
+]
+testdb> db.test.aggregate([{$group:{_id:"$fname",cnt:{$sum:1}}},{$project:{_id:0}}]).pretty()
+[ { cnt: 1 }, { cnt: 1 }, { cnt: 1 }, { cnt: 2 } ]
+testdb> db.test.aggregate([{$group:{_id:"$fname",cnt:{$sum:1}}},{$match:{cnt:{$gt:1}}},{$project:{_id:0}}]).pretty()
+[ { cnt: 2 } ]
+testdb>
+
