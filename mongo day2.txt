@@ -843,3 +843,511 @@ testdb> db.test.aggregate([{$group:{_id:"$fname",cnt:{$sum:1}}},{$match:{cnt:{$g
 [ { cnt: 2 } ]
 testdb>
 
+//////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
+
+
+
+
+
+testdb> use ankita_demo
+switched to db ankita_demo
+ankita_demo> db.createCollection("gauri")
+{ ok: 1 }
+ankita_demo> db.gauri.insert({g_name:"gaura",g_age:21,g_height})
+ReferenceError: g_height is not defined
+ankita_demo> db.gauri.insert({g_name:"gaura",g_age:21,g_height:157,g_year:2002})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658d64afe0dc89f2ae7009fe') }
+}
+ankita_demo> db.gauri.insert({g_name:"ankita",g_age:24,g_height:153,g_year:1999})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('658d64d1e0dc89f2ae7009ff') }
+}
+ankita_demo> db.gauri.drop()
+true
+ankita_demo> show collections
+
+ankita_demo> db.createCollection("students")
+{ ok: 1 }
+ankita_demo> db.students.insertOne({id:1,name:"gauri",age:21,details:{course:"DAC",duration:6}})
+{
+  acknowledged: true,
+  insertedId: ObjectId('658d65cbe0dc89f2ae700a00')
+}
+ankita_demo> db.students.find()
+[
+  {
+    _id: ObjectId('658d65cbe0dc89f2ae700a00'),
+    id: 1,
+    name: 'gauri',
+    age: 21,
+    details: { course: 'DAC', duration: 6 }
+  }
+]
+ankita_demo> db.students.insertMany({id:2,name:"ankita",age:24,details:{course:"CS",duration:4,grad_year:2021}},{id:3,name:"anjali",age:26,details:{course:"DBDA",duration:7}},{id:4,name:"radha",age:22,details:{course:"IT",duration:9,grad_year:2022}})
+MongoInvalidArgumentError: Argument "docs" must be an array of documents
+ankita_demo> db.students.insertMany([{id:2,name:"ankita",age:24,details:{course:"CS",duration:4,grad_year:2021}},{id:3,name:"anjali",age:26,details:{course:"DBDA",duration:7}},{id:4,name:"radha",age:22,details:{course:"IT",duration:9,grad_year:2022}}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('658d673de0dc89f2ae700a01'),
+    '1': ObjectId('658d673de0dc89f2ae700a02'),
+    '2': ObjectId('658d673de0dc89f2ae700a03')
+  }
+}
+ankita_demo> db.students.find()
+[
+  {
+    _id: ObjectId('658d65cbe0dc89f2ae700a00'),
+    id: 1,
+    name: 'gauri',
+    age: 21,
+    details: { course: 'DAC', duration: 6 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a01'),
+    id: 2,
+    name: 'ankita',
+    age: 24,
+    details: { course: 'CS', duration: 4, grad_year: 2021 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a02'),
+    id: 3,
+    name: 'anjali',
+    age: 26,
+    details: { course: 'DBDA', duration: 7 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a03'),
+    id: 4,
+    name: 'radha',
+    age: 22,
+    details: { course: 'IT', duration: 9, grad_year: 2022 }
+  }
+]
+ankita_demo> db.students.find({name:"radha"})
+[
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a03'),
+    id: 4,
+    name: 'radha',
+    age: 22,
+    details: { course: 'IT', duration: 9, grad_year: 2022 }
+  }
+]
+ankita_demo> db.students.find({"name":"radha"})
+[
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a03'),
+    id: 4,
+    name: 'radha',
+    age: 22,
+    details: { course: 'IT', duration: 9, grad_year: 2022 }
+  }
+]
+ankita_demo> db.students.find({"name":radha})
+ReferenceError: radha is not defined
+ankita_demo> db.students.find({name:{$eq:"radha"}})
+[
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a03'),
+    id: 4,
+    name: 'radha',
+    age: 22,
+    details: { course: 'IT', duration: 9, grad_year: 2022 }
+  }
+]
+ankita_demo> db.students.find({age:{$lt:25}})
+[
+  {
+    _id: ObjectId('658d65cbe0dc89f2ae700a00'),
+    id: 1,
+    name: 'gauri',
+    age: 21,
+    details: { course: 'DAC', duration: 6 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a01'),
+    id: 2,
+    name: 'ankita',
+    age: 24,
+    details: { course: 'CS', duration: 4, grad_year: 2021 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a03'),
+    id: 4,
+    name: 'radha',
+    age: 22,
+    details: { course: 'IT', duration: 9, grad_year: 2022 }
+  }
+]
+ankita_demo> db.students.find({age:{$lte:22}})
+[
+  {
+    _id: ObjectId('658d65cbe0dc89f2ae700a00'),
+    id: 1,
+    name: 'gauri',
+    age: 21,
+    details: { course: 'DAC', duration: 6 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a03'),
+    id: 4,
+    name: 'radha',
+    age: 22,
+    details: { course: 'IT', duration: 9, grad_year: 2022 }
+  }
+]
+ankita_demo> db.students.find({age:{$gt:23}})
+[
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a01'),
+    id: 2,
+    name: 'ankita',
+    age: 24,
+    details: { course: 'CS', duration: 4, grad_year: 2021 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a02'),
+    id: 3,
+    name: 'anjali',
+    age: 26,
+    details: { course: 'DBDA', duration: 7 }
+  }
+]
+ankita_demo> db.students.find({age:{$gte:23}})
+[
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a01'),
+    id: 2,
+    name: 'ankita',
+    age: 24,
+    details: { course: 'CS', duration: 4, grad_year: 2021 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a02'),
+    id: 3,
+    name: 'anjali',
+    age: 26,
+    details: { course: 'DBDA', duration: 7 }
+  }
+]
+ankita_demo> db.students.find({age:{$gte:26}})
+[
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a02'),
+    id: 3,
+    name: 'anjali',
+    age: 26,
+    details: { course: 'DBDA', duration: 7 }
+  }
+]
+ankita_demo> db.students.find({},{name:"radha"})
+[
+  { _id: ObjectId('658d65cbe0dc89f2ae700a00'), name: 'radha' },
+  { _id: ObjectId('658d673de0dc89f2ae700a01'), name: 'radha' },
+  { _id: ObjectId('658d673de0dc89f2ae700a02'), name: 'radha' },
+  { _id: ObjectId('658d673de0dc89f2ae700a03'), name: 'radha' }
+]
+ankita_demo> db.students.find()
+[
+  {
+    _id: ObjectId('658d65cbe0dc89f2ae700a00'),
+    id: 1,
+    name: 'gauri',
+    age: 21,
+    details: { course: 'DAC', duration: 6 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a01'),
+    id: 2,
+    name: 'ankita',
+    age: 24,
+    details: { course: 'CS', duration: 4, grad_year: 2021 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a02'),
+    id: 3,
+    name: 'anjali',
+    age: 26,
+    details: { course: 'DBDA', duration: 7 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a03'),
+    id: 4,
+    name: 'radha',
+    age: 22,
+    details: { course: 'IT', duration: 9, grad_year: 2022 }
+  }
+]
+ankita_demo> db.students.find({},{name:1})
+[
+  { _id: ObjectId('658d65cbe0dc89f2ae700a00'), name: 'gauri' },
+  { _id: ObjectId('658d673de0dc89f2ae700a01'), name: 'ankita' },
+  { _id: ObjectId('658d673de0dc89f2ae700a02'), name: 'anjali' },
+  { _id: ObjectId('658d673de0dc89f2ae700a03'), name: 'radha' }
+]
+ankita_demo> db.students.find({name:1},{})
+
+ankita_demo> db.students.find({name:"gauri"},{})
+[
+  {
+    _id: ObjectId('658d65cbe0dc89f2ae700a00'),
+    id: 1,
+    name: 'gauri',
+    age: 21,
+    details: { course: 'DAC', duration: 6 }
+  }
+]
+ankita_demo> db.students.find({age:{$gte:26}},{name:1,_id=0})
+...
+... ;
+Uncaught:
+SyntaxError: Invalid shorthand property initializer. (1:44)
+
+> 1 | db.students.find({age:{$gte:26}},{name:1,_id=0})
+    |                                             ^
+  2 |
+  3 | ;
+  4 |
+
+ankita_demo> db.students.find({age:{$gte:26}},{name:1,_id:0}) ;
+[ { name: 'anjali' } ]
+ankita_demo> db.students.find({age:{$gte:22}},{name:1,_id:0}) ;
+[ { name: 'ankita' }, { name: 'anjali' }, { name: 'radha' } ]
+ankita_demo> db.students.find({age:{$gte:22}},{name:1}) ;
+[
+  { _id: ObjectId('658d673de0dc89f2ae700a01'), name: 'ankita' },
+  { _id: ObjectId('658d673de0dc89f2ae700a02'), name: 'anjali' },
+  { _id: ObjectId('658d673de0dc89f2ae700a03'), name: 'radha' }
+]
+ankita_demo> db.students.find({age:{$gte:22}},{name:0}) ;
+[
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a01'),
+    id: 2,
+    age: 24,
+    details: { course: 'CS', duration: 4, grad_year: 2021 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a02'),
+    id: 3,
+    age: 26,
+    details: { course: 'DBDA', duration: 7 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a03'),
+    id: 4,
+    age: 22,
+    details: { course: 'IT', duration: 9, grad_year: 2022 }
+  }
+]
+ankita_demo> db.students.find({age:{$gte:22}},{name:0}) ;
+[
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a01'),
+    id: 2,
+    age: 24,
+    details: { course: 'CS', duration: 4, grad_year: 2021 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a02'),
+    id: 3,
+    age: 26,
+    details: { course: 'DBDA', duration: 7 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a03'),
+    id: 4,
+    age: 22,
+    details: { course: 'IT', duration: 9, grad_year: 2022 }
+  }
+]
+ankita_demo> db.students.find({age:{$ne:26}})
+[
+  {
+    _id: ObjectId('658d65cbe0dc89f2ae700a00'),
+    id: 1,
+    name: 'gauri',
+    age: 21,
+    details: { course: 'DAC', duration: 6 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a01'),
+    id: 2,
+    name: 'ankita',
+    age: 24,
+    details: { course: 'CS', duration: 4, grad_year: 2021 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a03'),
+    id: 4,
+    name: 'radha',
+    age: 22,
+    details: { course: 'IT', duration: 9, grad_year: 2022 }
+  }
+]
+ankita_demo> db.students.find({name:{$eq:"DAC"}})
+
+ankita_demo> db.students.find({course:{$eq:"DAC"}})
+
+ankita_demo> db.students.find({details:{course:{$eq:"DAC"}}})
+
+ankita_demo> db.students.find({details:{$elemMatch:{course:{$eq:"DAC"}}}})
+
+ankita_demo> db.students.find({details:{$elemMatch:{$eq:"DAC"}}}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:51)
+
+> 1 | db.students.find({details:{$elemMatch:{$eq:"DAC"}}}})
+    |                                                    ^
+  2 |
+
+ankita_demo> db.students.find({details:{$elemMatch:{$eq:"DAC"}}})
+
+ankita_demo> db.students.find({details:{$elemMatch:{course:"DAC"}}})
+
+ankita_demo> db.students.find({details.course:"DAC"})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:25)
+
+> 1 | db.students.find({details.course:"DAC"})
+    |                          ^
+  2 |
+
+ankita_demo> db.students.find({details[course]:"DAC"})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:25)
+
+> 1 | db.students.find({details[course]:"DAC"})
+    |                          ^
+  2 |
+
+ankita_demo> db.students.find({details.course:"DAC"})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:25)
+
+> 1 | db.students.find({details.course:"DAC"})
+    |                          ^
+  2 |
+
+ankita_demo> db.students.find({"details.course":"DAC"})
+[
+  {
+    _id: ObjectId('658d65cbe0dc89f2ae700a00'),
+    id: 1,
+    name: 'gauri',
+    age: 21,
+    details: { course: 'DAC', duration: 6 }
+  }
+]
+ankita_demo> db.students.find({"details.duration":6})
+[
+  {
+    _id: ObjectId('658d65cbe0dc89f2ae700a00'),
+    id: 1,
+    name: 'gauri',
+    age: 21,
+    details: { course: 'DAC', duration: 6 }
+  }
+]
+ankita_demo> db.students.find({"details.grad_year":2022})
+[
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a03'),
+    id: 4,
+    name: 'radha',
+    age: 22,
+    details: { course: 'IT', duration: 9, grad_year: 2022 }
+  }
+]
+ankita_demo> db.students.insertOne({id:5,name:"rukmini",age:27,details:[{course:"EXTC",duration:8},{grad_year:2017}]})
+{
+  acknowledged: true,
+  insertedId: ObjectId('658d6c90e0dc89f2ae700a04')
+}
+ankita_demo> db.students.find()
+[
+  {
+    _id: ObjectId('658d65cbe0dc89f2ae700a00'),
+    id: 1,
+    name: 'gauri',
+    age: 21,
+    details: { course: 'DAC', duration: 6 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a01'),
+    id: 2,
+    name: 'ankita',
+    age: 24,
+    details: { course: 'CS', duration: 4, grad_year: 2021 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a02'),
+    id: 3,
+    name: 'anjali',
+    age: 26,
+    details: { course: 'DBDA', duration: 7 }
+  },
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a03'),
+    id: 4,
+    name: 'radha',
+    age: 22,
+    details: { course: 'IT', duration: 9, grad_year: 2022 }
+  },
+  {
+    _id: ObjectId('658d6c90e0dc89f2ae700a04'),
+    id: 5,
+    name: 'rukmini',
+    age: 27,
+    details: [ { course: 'EXTC', duration: 8 }, { grad_year: 2017 } ]
+  }
+]
+ankita_demo> db.students.find({"details[0].duration":8})
+
+ankita_demo> db.students.find({"details.duration":8})
+[
+  {
+    _id: ObjectId('658d6c90e0dc89f2ae700a04'),
+    id: 5,
+    name: 'rukmini',
+    age: 27,
+    details: [ { course: 'EXTC', duration: 8 }, { grad_year: 2017 } ]
+  }
+]
+ankita_demo> db.students.find({"details.durations":8})
+
+ankita_demo> db.students.find({"details.grad_year":2021})
+[
+  {
+    _id: ObjectId('658d673de0dc89f2ae700a01'),
+    id: 2,
+    name: 'ankita',
+    age: 24,
+    details: { course: 'CS', duration: 4, grad_year: 2021 }
+  }
+]
+ankita_demo> db.students.find({"details.grad_year":2017})
+[
+  {
+    _id: ObjectId('658d6c90e0dc89f2ae700a04'),
+    id: 5,
+    name: 'rukmini',
+    age: 27,
+    details: [ { course: 'EXTC', duration: 8 }, { grad_year: 2017 } ]
+  }
+]
+ankita_demo> db.students.find({"details.grad_year":2018})
+
+ankita_demo>
+
+
+
+
+
